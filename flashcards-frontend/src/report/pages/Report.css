@@ -1,0 +1,265 @@
+:root {
+  --background-color: #1a1a2e;
+  --text-color: #f0f2f5;
+  --card-bg: #2a3e6a; 
+  --header-bg: transparent;
+
+  --status-green: #28a745;
+  --status-orange: #ffc107;
+  --status-red: #dc3545;
+}
+
+.report-container {
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: var(--header-bg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.report-header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.report-header .user-info {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.report-main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  max-width: 1000px; 
+  margin: 0 auto; 
+  width: 100%; 
+}
+
+.report-main-content h1 {
+  font-size: 48px;
+  margin-bottom: 50px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.report-summary {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.report-summary h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.summary-cards {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 25px; 
+}
+
+.summary-card {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  flex: 1; 
+  min-width: 200px; 
+  max-width: 280px; 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px); 
+}
+
+.summary-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.summary-card p {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.summary-card.correct p {
+  color: var(--status-green);
+}
+
+.summary-card.incorrect p {
+  color: var(--status-red);
+}
+
+.summary-card.accuracy p {
+  color: var(--status-orange);
+}
+
+.report-details {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; 
+  justify-content: center;
+}
+
+.details-section {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 30px;
+  flex: 1; 
+  min-width: 300px; 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.details-section h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.details-section ul {
+  list-style: none; 
+  padding: 0;
+  margin: 0;
+}
+
+.details-section li {
+  font-size: 18px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+  color: var(--text-color);
+}
+
+.details-section li:last-child {
+  border-bottom: none; 
+}
+
+.details-section p {
+  font-size: 18px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7); 
+}
+
+@media (max-width: 900px) {
+  .report-header {
+    padding: 20px 30px;
+  }
+
+  .report-main-content h1 {
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+
+  .summary-card {
+    min-width: 180px;
+    padding: 20px;
+  }
+
+  .summary-card h3 {
+    font-size: 18px;
+  }
+
+  .summary-card p {
+    font-size: 30px;
+  }
+
+  .report-details {
+    flex-direction: column; 
+    gap: 30px;
+    align-items: center;
+  }
+
+  .details-section {
+    width: 90%;
+    max-width: 500px; 
+    padding: 25px;
+  }
+
+  .details-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .details-section li {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .report-header {
+    flex-direction: column;
+    padding: 15px 20px;
+  }
+  .report-header .user-info {
+    margin-top: 10px;
+  }
+
+  .report-main-content h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .report-summary h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .summary-cards {
+    flex-direction: column; 
+    gap: 15px;
+  }
+
+  .summary-card {
+    min-width: unset; 
+    width: 90%; 
+    max-width: 350px; 
+    margin: 0 auto; 
+    padding: 20px;
+  }
+
+  .summary-card h3 {
+    font-size: 16px;
+  }
+
+  .summary-card p {
+    font-size: 28px;
+  }
+
+  .details-section {
+    padding: 20px;
+  }
+  .details-section h2 {
+    font-size: 20px;
+  }
+  .details-section li {
+    font-size: 14px;
+  }
+}
+
+body {
+    margin: 0;
+}

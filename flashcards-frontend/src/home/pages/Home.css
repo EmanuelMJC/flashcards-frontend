@@ -1,0 +1,192 @@
+:root {
+  --background-color: #1a1a2e; 
+  --text-color: #f0f2f5;    
+  --primary-button-bg: #4a90e2; 
+  --primary-button-hover-bg: #3a7bd2;
+  --flashcard-bg-primary: #3f51b5; 
+  --flashcard-bg-secondary: #2a3e6a; 
+  --header-bg: transparent; 
+}
+
+.home-container {
+  min-height: 100vh; 
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif; 
+  display: flex;
+  flex-direction: column; 
+  overflow: hidden; 
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 20px 50px; 
+  background-color: var(--header-bg);
+  width: 100%; 
+  box-sizing: border-box; 
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.auth-buttons button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  padding: 10px 20px;
+  margin-left: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px; 
+  transition: background-color 0.3s ease; 
+}
+
+.auth-buttons .btn-login {
+  background-color: var(--primary-button-bg);
+  border: 1px solid var(--primary-button-bg); 
+}
+
+.auth-buttons .btn-sign-in:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+
+.auth-buttons .btn-login:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.hero-section {
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  flex-grow: 1; 
+  padding: 50px; 
+}
+
+.hero-main-content {
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  max-width: 1200px;
+  width: 100%; 
+  gap: 80px; 
+  padding: 0 20px; 
+}
+
+.hero-content {
+  max-width: 600px; 
+  text-align: left;
+  z-index: 10; 
+}
+
+.hero-content h1 {
+  font-size: 72px; 
+  margin-bottom: 20px;
+  line-height: 1; 
+}
+
+.hero-content p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.btn-comece-agora {
+  background-color: var(--primary-button-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-comece-agora:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.flashcards-examples {
+  display: flex;
+  flex-direction: column; 
+  gap: 30px; 
+}
+
+.flashcard-example {
+  width: 300px;
+  min-height: 150px; 
+  border-radius: 20px; 
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+}
+
+.primary-flashcard {
+  background-color: var(--flashcard-bg-primary);
+  transform: rotate(-5deg) translateX(20px);
+  z-index: 2; 
+}
+
+.secondary-flashcard {
+  background-color: var(--flashcard-bg-secondary);
+  transform: rotate(5deg) translateX(-20px); 
+  opacity: 0.7; 
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .hero-main-content {
+    flex-direction: column; 
+    text-align: center;
+    gap: 50px; 
+  }
+
+  .hero-content {
+    margin-right: 0; 
+    margin-bottom: 0;   
+  }
+
+  .hero-content h1 {
+    font-size: 50px;
+  }
+
+  .primary-flashcard, .secondary-flashcard {
+    transform: none; 
+  }
+}
+
+@media (max-width: 768px) {
+  .home-header {
+    flex-direction: column; 
+    padding: 20px;
+  }
+
+  .auth-buttons {
+    margin-top: 15px;
+  }
+
+  .auth-buttons button {
+    margin: 0 10px; 
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+}
+
+body {
+    margin: 0;
+}
