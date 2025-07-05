@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Form from '@radix-ui/react-form';
+import { loginUser } from '../../services/loginService';
 import './login.css';
 
 const Login = () => {
-  const handleSubmit = (event) => {
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = Object.fromEntries(new FormData(event.currentTarget));
-    console.log('Login data:', data);
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const data = Object.fromEntries(new FormData(event.currentTarget));
+      await loginUser(data.email, data.password);
+      
+      window.location.href = '/dashboard';
+    } catch (err) {
+      setError(err.message || 'Ocorreu um erro durante o login');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -19,6 +34,8 @@ const Login = () => {
         <div className="login-card">
           <h2 className="login-title">Login</h2>
           
+          {error && <div className="error-message">{error}</div>}
+
           <Form.Root className="login-form" onSubmit={handleSubmit}>
             <Form.Field className="form-field" name="email">
               <Form.Label className="form-label">Email</Form.Label>
@@ -53,8 +70,12 @@ const Login = () => {
             <a href="#" className="forgot-password">Esqueci minha senha</a>
 
             <Form.Submit asChild>
-              <button type="submit" className="login-button">
-                Entrar
+              <button 
+                type="submit" 
+                className="login-button"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Carregando...' : 'Entrar'}
               </button>
             </Form.Submit>
           </Form.Root>
