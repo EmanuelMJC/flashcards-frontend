@@ -1,16 +1,13 @@
-// src/home/pages/Home.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Importa Link
+import { Link } from 'react-router-dom'; 
 import './Home.css';
 
-// Não precisa mais da prop navigateTo
 function Home() { 
   return (
     <div className="home-container">
       <header className="home-header">
         <div className="logo">DECOREBA</div>
         <nav className="auth-buttons">
-          {/* Usando Link para navegar para o Dashboard */}
           <Link to="/dashboard" className="btn-sign-in" style={{ textDecoration: 'none', color: 'inherit' }}>Sign In</Link>
           <Link to="/dashboard" className="btn-login" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link>
         </nav>
@@ -27,7 +24,6 @@ function Home() {
               método de repetição espaçada otimiza sua memória e garante que o
               conhecimento fique na sua cabeça por muito mais tempo.
             </p>
-            {/* Usando Link para navegar para o Dashboard */}
             <Link to="/dashboard" className="btn-comece-agora" style={{ textDecoration: 'none', color: 'inherit' }}>Comece agora</Link>
           </div>
 
@@ -41,8 +37,6 @@ function Home() {
           </div>
         </div>
       </main>
-
-      {/* Os botões temporários de navegação foram movidos para o App.js */}
     </div>
   );
 }

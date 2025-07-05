@@ -1,16 +1,12 @@
-// src/report/pages/Report.jsx
-import React, { useContext } from 'react'; // Importa useContext
+import React, { useContext } from 'react';
 import './Report.css';
 
-// Importa o AuthContext do App.js
 import { AuthContext } from '../../App'; 
 
 function Report() {
-  // Acessa o contexto de autenticação
   const { currentUser } = useContext(AuthContext);
   const username = currentUser ? currentUser.username : "Visitante";
 
-  // Dados simulados para o relatório (mantidos por enquanto, pois não há endpoint de relatório direto)
   const reportData = {
     totalReviewed: 150,
     correctAnswers: 120,
