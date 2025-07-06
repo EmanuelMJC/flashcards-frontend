@@ -8,7 +8,6 @@ const api = axios.create({
   },
 });
 
-// Interceptores podem ser adicionados aqui
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -20,7 +19,6 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Função de login automático para desenvolvimento
 export async function loginDevUser() {
   try {
     const response = await api.post('/auth/login', {
