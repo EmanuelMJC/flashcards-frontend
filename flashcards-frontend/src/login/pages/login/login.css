@@ -161,3 +161,39 @@
 .create-account:hover {
   text-decoration: underline;
 }
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Melhorias nos links */
+.create-account, .forgot-password {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+  color: #4a6bff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.create-account:hover, .forgot-password:hover {
+  color: #3a56d4;
+  text-decoration: underline;
+}
+
+.login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
