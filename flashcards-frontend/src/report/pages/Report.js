@@ -1,8 +1,11 @@
-import React from 'react';
-import './Report.css'; 
+import React, { useContext } from 'react';
+import './Report.css';
+
+import { AuthContext } from '../../App'; 
 
 function Report() {
-  const username = "Username";
+  const { currentUser } = useContext(AuthContext);
+  const username = currentUser ? currentUser.username : "Visitante";
 
   const reportData = {
     totalReviewed: 150,
@@ -27,7 +30,7 @@ function Report() {
           <span>{username}</span>
         </div>
       </header>
-      
+
       <main className="report-main-content">
         <h1>Relatório de Desempenho</h1>
 
