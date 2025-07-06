@@ -1,0 +1,240 @@
+:root {
+  --background-color: #1a1a2e; 
+  --text-color: #f0f2f5;      
+  --flashcard-bg: #3f51b5;   
+  --flashcard-bg-back: #2a3e6a; 
+  --button-show-back-bg: #34495e; 
+  --button-show-back-hover-bg: #2c3e50;
+  --difficulty-button-bg: #4a90e2; 
+  --difficulty-button-hover-bg: #3a7bd2;
+
+  --status-green: #28a745;
+  --status-orange: #ffc107;
+  --status-red: #dc3545;
+}
+
+.flashcard-study-container {
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif; 
+  display: flex;
+  flex-direction: column; 
+  overflow: hidden; 
+}
+
+.flashcard-study-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 20px 50px; 
+  background-color: transparent; 
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.flashcard-study-header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.flashcard-study-header .user-info {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.flashcard-study-main-content {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;     
+  padding: 50px;
+  text-align: center; 
+}
+
+.study-header-info {
+  display: flex;
+  align-items: baseline; 
+  gap: 30px;
+  margin-bottom: 50px; 
+  width: 100%;
+  max-width: 800px; 
+  justify-content: space-between; 
+  padding: 0 20px; 
+  box-sizing: border-box;
+}
+
+.deck-title {
+  font-size: 50px; 
+  font-weight: bold;
+  margin: 0; 
+  color: var(--text-color);
+}
+
+.flashcard-status-indicators {
+  font-size: 28px; 
+  font-weight: bold;
+  display: flex;
+  gap: 15px;
+}
+
+.status-green {
+  color: var(--status-green);
+}
+
+.status-orange {
+  color: var(--status-orange);
+}
+
+.status-red {
+  color: var(--status-red);
+}
+
+.flashcard {
+  background-color: var(--flashcard-bg); 
+  width: 100%;
+  max-width: 800px; 
+  height: 350px; 
+  border-radius: 25px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+  padding: 20px; 
+  box-sizing: border-box;
+  transition: background-color 0.3s ease-in-out; 
+}
+
+.flashcard.flashcard-back-active {
+  background-color: var(--flashcard-bg-back); 
+}
+
+.flashcard-text {
+  font-size: 38px; 
+  color: var(--text-color);
+  text-align: center;
+  margin: 0; 
+  user-select: none; 
+}
+
+.btn-show-back {
+  background-color: var(--button-show-back-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-show-back:hover {
+  background-color: var(--button-show-back-hover-bg);
+}
+
+.difficulty-buttons {
+  display: flex;
+  gap: 15px; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+}
+
+.btn-difficulty {
+  background-color: var(--difficulty-button-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px; 
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-difficulty:hover {
+  background-color: var(--difficulty-button-hover-bg);
+  transform: translateY(-2px); 
+}
+
+@media (max-width: 900px) {
+  .study-header-info {
+    flex-direction: column; 
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 0 15px; 
+  }
+
+  .deck-title {
+    font-size: 40px;
+  }
+
+  .flashcard-status-indicators {
+    font-size: 24px;
+    gap: 10px;
+  }
+
+  .flashcard {
+    max-width: 90%; 
+    height: 300px;
+  }
+
+  .flashcard-text {
+    font-size: 30px;
+  }
+
+  .btn-show-back,
+  .btn-difficulty {
+    padding: 12px 30px;
+    font-size: 16px;
+  }
+
+  .difficulty-buttons {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .flashcard-study-header {
+    flex-direction: column; 
+    padding: 15px 20px;
+  }
+  .flashcard-study-header .user-info {
+    margin-top: 10px;
+  }
+
+  .deck-title {
+    font-size: 32px;
+  }
+
+  .flashcard-status-indicators {
+    font-size: 20px;
+  }
+
+  .flashcard {
+    height: 250px;
+  }
+
+  .flashcard-text {
+    font-size: 24px;
+  }
+
+  .btn-show-back,
+  .btn-difficulty {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .difficulty-buttons {
+    flex-direction: column; 
+    gap: 8px; 
+  }
+}
+
+body {
+    margin: 0;
+}
