@@ -4,7 +4,7 @@ import { registerUser } from '../../services/registerService';
 import { loginUser } from '../../services/loginService';
 import './register.css';
 
-const Register = () => {
+function Register({ navigateTo }) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -136,7 +136,7 @@ const Register = () => {
             </Form.Submit>
           </Form.Root>
 
-          <a href="/login" className="create-account">Já tenho cadastro</a>
+          <a href="/login" className="create-account" onClick={() => navigateTo('login')}>Já tenho cadastro</a>
         </div>
       </main>
     </div>

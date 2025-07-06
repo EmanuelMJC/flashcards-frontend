@@ -26,6 +26,10 @@ function App() {
         return <FlashcardStudy />;
       case 'report':
         return <Report />;
+      case 'login':
+        return <Login navigateTo={navigateTo} />;
+      case 'register':
+        return <Register navigateTo={navigateTo} />;
       default:
         return <Home navigateTo={navigateTo} />;
     }

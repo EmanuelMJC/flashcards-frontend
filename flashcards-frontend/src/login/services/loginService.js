@@ -7,7 +7,7 @@ export const loginUser = async (email, password) => {
       throw new Error('Email e senha são obrigatórios');
     }
 
-    const response = await fetch('https://congenial-fishstick-jj9rw775v575fpr77-3001.app.github.dev/auth/login', {
+    const response = await fetch('http://localhost:3000/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

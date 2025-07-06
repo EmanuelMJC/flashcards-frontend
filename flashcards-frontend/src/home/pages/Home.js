@@ -8,8 +8,8 @@ function Home({ navigateTo }) {
       <header className="home-header">
         <div className="logo">DECOREBA</div>
         <nav className="auth-buttons">
-          <button className="btn-sign-in" onClick={() => navigateTo('dashboard')}>Sign In</button>
-          <button className="btn-login" onClick={() => navigateTo('dashboard')}>Login</button>
+          <button className="btn-sign-in" onClick={() => navigateTo('register')}>Sign In</button>
+          <button className="btn-login" onClick={() => navigateTo('login')}>Login</button>
         </nav>
       </header>
 
