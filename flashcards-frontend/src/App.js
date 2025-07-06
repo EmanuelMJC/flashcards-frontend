@@ -1,15 +1,17 @@
-import CreateCard from './flashcard-study/pages/CreateCard';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import api from './services/api';
+import './App.css';
+
 import Home from './home/pages/Home';
 import Dashboard from './dashboard/pages/Dashboard';
 import FlashcardStudy from './flashcard-study/pages/FlashcardStudy';
+import CreateCard from './flashcard-study/pages/CreateCard';
 import Report from './report/pages/Report';
-import api, { loginDevUser } from './services/api'; // ajuste o caminho conforme sua estrutura
-export const AuthContext = React.createContext(null);
-import './App.css';
 import Login from './login/pages/login/login';
 import Register from './login/pages/register/register';
+
+export const AuthContext = React.createContext(null);
 
 function App() {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
@@ -17,7 +19,6 @@ function App() {
 
   useEffect(() => {
     if (authToken && !currentUser) {
-      // Aqui você pode buscar os dados do usuário, se desejar
       const savedUser = JSON.parse(localStorage.getItem('user'));
       if (savedUser) setCurrentUser(savedUser);
     }
