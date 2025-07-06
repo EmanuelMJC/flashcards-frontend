@@ -1,0 +1,259 @@
+:root {
+  --background-color: #1a1a2e; 
+  --text-color: #f0f2f5;    
+  --primary-button-bg: #4a90e2; 
+  --primary-button-hover-bg: #3a7bd2;
+  --header-bg: transparent;
+  --card-bg: #2a3e6a; 
+}
+
+.dashboard-container {
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  padding: 20px 50px;
+  background-color: var(--header-bg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dashboard-header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.dashboard-header .user-info {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.dashboard-main-content {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center;    
+  padding: 50px 20px; 
+}
+
+.dashboard-main-content h1 {
+  font-size: 60px; 
+  margin-bottom: 30px; 
+  color: var(--text-color);
+  text-align: center;
+}
+
+.no-decks-message p {
+  font-size: 24px;
+  margin-bottom: 40px; 
+  color: var(--text-color);
+  text-align: center;
+}
+
+.deck-list {
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 25px; 
+  width: 100%;
+  max-width: 1000px; 
+  margin-bottom: 50px; 
+}
+
+.deck-item {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  min-height: 180px; 
+}
+
+.deck-item h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.deck-item p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  flex-grow: 1; 
+  margin-bottom: 20px;
+}
+
+.deck-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end; 
+  gap: 10px;
+}
+
+.btn-study-deck {
+  background-color: var(--primary-button-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; 
+  display: inline-block; 
+}
+
+.btn-study-deck:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.create-deck-form {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.create-deck-form h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.create-deck-form input[type="text"],
+.create-deck-form textarea {
+  width: calc(100% - 20px); 
+  padding: 12px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.3); 
+  color: var(--text-color);
+  font-size: 16px;
+  outline: none; 
+}
+
+.create-deck-form input[type="text"]::placeholder,
+.create-deck-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.create-deck-form input[type="text"]:focus,
+.create-deck-form textarea:focus {
+  border-color: var(--primary-button-bg); 
+}
+
+.create-deck-form textarea {
+  min-height: 80px; 
+  resize: vertical; 
+}
+
+.btn-criar-baralho {
+  background-color: var(--primary-button-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%; 
+}
+
+.btn-criar-baralho:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+@media (max-width: 900px) {
+  .dashboard-header {
+    padding: 20px 30px;
+  }
+
+  .dashboard-main-content h1 {
+    font-size: 50px;
+  }
+
+  .deck-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .deck-item {
+    padding: 20px;
+  }
+
+  .deck-item h3 {
+    font-size: 22px;
+  }
+
+  .btn-study-deck {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  .create-deck-form {
+    padding: 25px;
+  }
+
+  .create-deck-form h2 {
+    font-size: 24px;
+  }
+
+  .btn-criar-baralho {
+    font-size: 18px;
+    padding: 12px 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .dashboard-header .user-info {
+    margin-top: 15px;
+  }
+
+  .dashboard-main-content h1 {
+    font-size: 40px;
+  }
+
+  .no-decks-message p {
+    font-size: 20px;
+  }
+
+  .deck-list {
+    grid-template-columns: 1fr; 
+    padding: 0 15px;
+  }
+
+  .deck-item {
+    min-height: unset; 
+  }
+
+  .create-deck-form {
+    padding: 20px;
+    width: calc(100% - 30px); 
+  }
+
+  .create-deck-form input[type="text"],
+  .create-deck-form textarea {
+    width: 100%; 
+  }
+}
