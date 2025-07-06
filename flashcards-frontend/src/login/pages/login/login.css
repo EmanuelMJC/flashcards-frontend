@@ -159,7 +159,34 @@
 }
 
 .create-account:hover {
+  cursor: pointer;
   text-decoration: underline;
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+}
+
+.password-toggle:hover {
+  color: #333;
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
 }
 
 .spinner {

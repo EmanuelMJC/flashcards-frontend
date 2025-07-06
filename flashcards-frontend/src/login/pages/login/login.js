@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import * as Form from '@radix-ui/react-form';
 import { loginUser } from '../../services/loginService';
 import './login.css';
+import { EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons';
 
 function Login({ navigateTo }) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,7 +21,6 @@ function Login({ navigateTo }) {
     try {
       const formData = new FormData(event.currentTarget);
       const { email, password } = Object.fromEntries(formData);
-      
 
       if (!email || !password) {
         throw new Error('Preencha todos os campos');
@@ -72,15 +77,25 @@ function Login({ navigateTo }) {
 
             <Form.Field className="form-field" name="password">
               <Form.Label className="form-label">Senha</Form.Label>
-              <Form.Control asChild>
-                <input
-                  className="form-input"
-                  type="password"
-                  placeholder="Insira sua senha"
-                  required
-                  minLength={6}
-                />
-              </Form.Control>
+              <div className="password-input-container">
+                <Form.Control asChild>
+                  <input
+                    className="form-input"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Insira sua senha"
+                    required
+                    minLength={6}
+                  />
+                </Form.Control>
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={togglePasswordVisibility}
+                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                >
+                  {showPassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
+                </button>
+              </div>
               <Form.Message className="form-message" match="valueMissing">
                 Insira sua senha
               </Form.Message>
@@ -88,10 +103,6 @@ function Login({ navigateTo }) {
                 A senha deve ter pelo menos 6 caracteres
               </Form.Message>
             </Form.Field>
-
-            <a href="/forgot-password" className="forgot-password">
-              Esqueci minha senha
-            </a>
 
             <Form.Submit asChild>
               <button 
@@ -109,7 +120,7 @@ function Login({ navigateTo }) {
             </Form.Submit>
           </Form.Root>
 
-          <a href="/register" className="create-account" onClick={() => navigateTo('register')}> 
+          <a className="create-account" onClick={() => navigateTo('register')}> 
             Não tem uma conta? Criar conta
           </a>
         </div>

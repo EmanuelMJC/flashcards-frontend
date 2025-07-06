@@ -168,5 +168,40 @@
 }
 
 .create-account:hover {
+  cursor: pointer;
   text-decoration: underline;
+}
+.input-error {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.password-toggle:hover {
+  color: #333;
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-top: 4px;
 }
