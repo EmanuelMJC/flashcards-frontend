@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import './Dashboard.css'; 
-import { getAllDecks, createDeck, deleteDeck, updateDeck } from '../pages/services/dashboardService'; 
-import { logoutUser } from '../../login/services/loginService'; 
-import CreateDeckModal from '../components/CreateDeckModal'; 
-import EditDeckModal from '../components/EditDeckModal'; 
+import './Dashboard.css';
+import { getDecks, createDeck, updateDeck, deleteDeck } from '../services/dashboardService';
+import { logoutUser } from '../../login/services/loginService';
+import CreateDeckModal from '../components/CreateDeckModal';
+import EditDeckModal from '../components/EditDeckModal';
 
-function Dashboard({ navigateTo }) { 
-  const username = localStorage.getItem('username').replace(/^"|"$/g, ''); 
+function Dashboard({ navigateTo }) {
+  const username = localStorage.getItem('username').replace(/^"|"$/g, '');
   const [decks, setDecks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [currentDeck, setCurrentDeck] = useState(null); 
+  const [currentDeck, setCurrentDeck] = useState(null);
 
   const fetchDecks = async () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await getAllDecks();
+      const data = await getDecks();
       setDecks(data);
     } catch (err) {
-      setError(err);
+      setError(err.message || 'Erro desconhecido ao buscar baralhos');
       console.error('Erro ao buscar baralhos:', err);
     } finally {
       setLoading(false);
@@ -35,12 +35,12 @@ function Dashboard({ navigateTo }) {
   const handleCreateDeck = async (deckName, deckDescription) => {
     try {
       await createDeck(deckName, deckDescription);
-      fetchDecks(); 
-      setIsCreateModalOpen(false); 
+      fetchDecks();
+      setIsCreateModalOpen(false);
     } catch (err) {
-      setError(err);
+      setError(err.message || 'Erro desconhecido ao criar baralho');
       console.error('Erro ao criar baralho:', err);
-      alert(`Erro ao criar baralho: ${err}`); 
+      alert(`Erro ao criar baralho: ${err.message || err}`);
     }
   };
 
@@ -50,9 +50,9 @@ function Dashboard({ navigateTo }) {
         await deleteDeck(deckId);
         fetchDecks();
       } catch (err) {
-        setError(err);
+        setError(err.message || 'Erro desconhecido ao excluir baralho');
         console.error('Erro ao excluir baralho:', err);
-        alert(`Erro ao excluir baralho: ${err}`);
+        alert(`Erro ao excluir baralho: ${err.message || err}`);
       }
     }
   };
@@ -61,12 +61,12 @@ function Dashboard({ navigateTo }) {
     try {
       await updateDeck(deckId, newName, newDescription);
       fetchDecks();
-      setIsEditModalOpen(false); 
-      setCurrentDeck(null); 
+      setIsEditModalOpen(false);
+      setCurrentDeck(null);
     } catch (err) {
-      setError(err);
+      setError(err.message || 'Erro desconhecido ao editar baralho');
       console.error('Erro ao editar baralho:', err);
-      alert(`Erro ao editar baralho: ${err}`);
+      alert(`Erro ao editar baralho: ${err.message || err}`);
     }
   };
 
@@ -104,8 +104,8 @@ function Dashboard({ navigateTo }) {
 
       <main className="dashboard-main-content">
         <h1>Baralhos:</h1>
-        
-        {error && <div className="error-message">{error}</div>} 
+
+        {error && <div className="error-message">{error}</div>}
 
         <button className="btn-criar-baralho" onClick={() => setIsCreateModalOpen(true)}>
           Criar Novo Baralho
@@ -116,7 +116,7 @@ function Dashboard({ navigateTo }) {
             <p>Nada por enquanto. Vamos estudar?</p>
           </div>
         ) : (
-          <div className="decks-grid"> 
+          <div className="decks-grid">
             {decks.map(deck => (
               <div key={deck.id} className="deck-card">
                 <h3>{deck.name}</h3>
@@ -128,28 +128,28 @@ function Dashboard({ navigateTo }) {
                   </span>
                 </div>
                 <div className="deck-actions">
-                  <button 
-                    className="btn-action btn-view-cards" 
-                    onClick={() => navigateTo('deckDetails', { deckId: deck.id })} 
+                  <button
+                    className="btn-action btn-view-cards"
+                    onClick={() => navigateTo('deckDetails', { deckId: deck.id })}
                   >
                     Ver Cards
                   </button>
-                  {deck.cards_for_review > 0 && ( 
-                    <button 
-                      className="btn-action btn-study" 
+                  {deck.cards_for_review > 0 && (
+                    <button
+                      className="btn-action btn-study"
                       onClick={() => navigateTo('study', { deckId: deck.id })}
                     >
                       Estudar ({deck.cards_for_review})
                     </button>
                   )}
-                  <button 
-                    className="btn-action btn-edit" 
+                  <button
+                    className="btn-action btn-edit"
                     onClick={() => openEditModal(deck)}
                   >
                     Editar
                   </button>
-                  <button 
-                    className="btn-action btn-delete" 
+                  <button
+                    className="btn-action btn-delete"
                     onClick={() => handleDeleteDeck(deck.id)}
                   >
                     Excluir
@@ -161,14 +161,14 @@ function Dashboard({ navigateTo }) {
         )}
       </main>
 
-      <CreateDeckModal 
-        isOpen={isCreateModalOpen} 
-        onClose={() => setIsCreateModalOpen(false)} 
-        onCreate={handleCreateDeck} 
+      <CreateDeckModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onCreate={handleCreateDeck}
       />
 
       {currentDeck && (
-        <EditDeckModal 
+        <EditDeckModal
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
           deck={currentDeck}
@@ -178,20 +178,20 @@ function Dashboard({ navigateTo }) {
 
       <div style={{
         position: 'fixed',
-        bottom: '0', 
-        left: '0',        
-        width: '100%',    
-        backgroundColor: 'rgba(0, 0, 0, 0.7)', 
+        bottom: '0',
+        left: '0',
+        width: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         padding: '15px 0',
         display: 'flex',
-        justifyContent: 'center', 
-        gap: '20px',     
-        zIndex: 9999,         
+        justifyContent: 'center',
+        gap: '20px',
+        zIndex: 9999,
         boxSizing: 'border-box'
       }}>
         <button onClick={() => navigateTo('home')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Home</button>
         <button onClick={() => navigateTo('dashboard')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Dashboard</button>
-        <button onClick={() => navigateTo('study')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Estudo (Geral)</button> 
+        <button onClick={() => navigateTo('study')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Estudo (Geral)</button>
         <button onClick={() => navigateTo('report')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Relatório</button>
       </div>
     </div>

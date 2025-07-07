@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './Modal.css'; 
+import './Modal.css';
 
 function CreateCardModal({ isOpen, onClose, onCreate }) {
   const [front, setFront] = useState('');
   const [back, setBack] = useState('');
-  const [tagsInput, setTagsInput] = useState(''); 
+  const [tagsInput, setTagsInput] = useState('');
 
   if (!isOpen) return null;
 

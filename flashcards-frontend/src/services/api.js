@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001'; 
+const API_URL = 'http://localhost:3001';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -12,7 +12,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('authToken'); 
+    const token = localStorage.getItem('authToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -34,7 +34,7 @@ api.interceptors.response.use(
       localStorage.removeItem('username');
       localStorage.removeItem('email');
 
-      window.location.href = '/login'; 
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }

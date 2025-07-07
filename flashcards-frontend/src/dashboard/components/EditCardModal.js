@@ -21,6 +21,7 @@ function EditCardModal({ isOpen, onClose, card, onEdit }) {
     if (front.trim() && back.trim()) {
       const tagsArray = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
       onEdit(card.id, front.trim(), back.trim(), tagsArray);
+      onClose(); 
     } else {
       alert('Frente e verso do cartão são obrigatórios!');
     }

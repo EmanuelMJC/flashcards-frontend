@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Modal.css'; 
+import './Modal.css';
 
 function EditDeckModal({ isOpen, onClose, deck, onEdit }) {
   const [newName, setNewName] = useState('');
@@ -18,6 +18,7 @@ function EditDeckModal({ isOpen, onClose, deck, onEdit }) {
     e.preventDefault();
     if (newName.trim()) {
       onEdit(deck.id, newName.trim(), newDescription.trim());
+      onClose(); 
     } else {
       alert('O nome do baralho é obrigatório!');
     }

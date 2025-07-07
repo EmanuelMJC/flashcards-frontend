@@ -1,19 +1,18 @@
-import api from '../../../services/api'; 
+import api from '../../services/api';
 
-export const getAllDecks = async () => {
+export const getDecks = async () => {
   try {
-    const response = await api.get('/decks'); 
-    return response.data; 
+    const response = await api.get('/decks');
+    return response.data;
   } catch (error) {
-    console.error('Erro ao obter dados do dashboard:', error);
+    console.error('Erro ao obter dados do dashboard (decks):', error);
     throw error.response?.data?.message || error.message || 'Erro desconhecido ao obter decks';
   }
 }
 
-export const createDeck = async (deckName, description = '') => { 
+export const createDeck = async (deckName, description = '') => {
   try {
-
-    const response = await api.post('/decks', { name: deckName, description }); 
+    const response = await api.post('/decks', { name: deckName, description });
     return response.data;
   } catch (error) {
     console.error('Erro ao criar baralho:', error);
@@ -21,12 +20,12 @@ export const createDeck = async (deckName, description = '') => {
   }
 }
 
-export const getDeck = async (deckId) => {
+export const getDeckById = async (deckId) => {
     try {
-        const response = await api.get(`/decks/${deckId}`); 
+        const response = await api.get(`/decks/${deckId}`);
         return response.data;
     } catch (error) {
-        console.error('Erro ao obter baralho:', error);
+        console.error(`Erro ao obter baralho ${deckId}:`, error);
         throw error.response?.data?.message || error.message || 'Erro desconhecido ao obter baralho';
     }
 }
@@ -36,38 +35,38 @@ export const deleteDeck = async (deckId) => {
         const response = await api.delete(`/decks/${deckId}`);
         return response.data;
     } catch (error) {
-        console.error('Erro ao excluir baralho:', error);
+        console.error(`Erro ao excluir baralho ${deckId}:`, error);
         throw error.response?.data?.message || error.message || 'Erro desconhecido ao excluir baralho';
     }
 }
 
-export const updateDeck = async (deckId, deckName, description) => { 
+export const updateDeck = async (deckId, deckName, description) => {
     try {
-        const response = await api.put(`/decks/${deckId}`, { name: deckName, description: description }); 
+        const response = await api.put(`/decks/${deckId}`, { name: deckName, description: description });
         return response.data;
     } catch (error) {
-        console.error('Erro ao atualizar baralho:', error);
+        console.error(`Erro ao atualizar baralho ${deckId}:`, error);
         throw error.response?.data?.message || error.message || 'Erro desconhecido ao atualizar baralho';
     }
 }
 
-export const getCardsByDeck = async (deckId) => {
+export const getCardsByDeckId = async (deckId) => {
     try {
         const response = await api.get(`/decks/${deckId}/cards`);
         return response.data;
     } catch (error) {
-        console.error('Erro ao obter cartas do baralho:', error);
-        throw error.response?.data?.message || error.message || 'Erro desconhecido ao obter cartas do baralho';
+        console.error(`Erro ao obter cartões para o baralho ${deckId}:`, error);
+        throw error.response?.data?.message || error.message || 'Erro desconhecido ao obter cartões';
     }
 }
 
-export const createCard = async (deckId, front, back, tags = []) => { 
+export const createCard = async (deckId, cardData) => {
     try {
-        const response = await api.post(`/decks/${deckId}/cards`, { front, back, tags });
+        const response = await api.post(`/decks/${deckId}/cards`, cardData);
         return response.data;
     } catch (error) {
-        console.error('Erro ao criar carta:', error);
-        throw error.response?.data?.message || error.message || 'Erro desconhecido ao criar carta';
+        console.error(`Erro ao criar cartão no baralho ${deckId}:`, error);
+        throw error.response?.data?.message || error.message || 'Erro desconhecido ao criar cartão';
     }
 }
 
@@ -81,9 +80,9 @@ export const getCardById = async (cardId) => {
   }
 }
 
-export const updateCard = async (cardId, front, back, tags = []) => {
+export const updateCard = async (cardId, cardData) => {
     try {
-        const response = await api.put(`/cards/${cardId}`, { front, back, tags });
+        const response = await api.put(`/cards/${cardId}`, cardData);
         return response.data;
     } catch (error) {
         console.error(`Erro ao atualizar card ${cardId}:`, error);
@@ -96,8 +95,8 @@ export const deleteCard = async (cardId) => {
         const response = await api.delete(`/cards/${cardId}`);
         return response.data;
     } catch (error) {
-        console.error(`Erro ao deletar card ${cardId}:`, error);
-        throw error.response?.data?.message || error.message || 'Erro desconhecido ao deletar card';
+        console.error(`Erro ao excluir cartão ${cardId}:`, error);
+        throw error.response?.data?.message || error.message || 'Erro desconhecido ao excluir cartão';
     }
 }
 
@@ -107,6 +106,15 @@ export const markCardDifficulty = async (cardId, rating) => {
         return response.data;
     } catch (error) {
         console.error(`Erro ao marcar dificuldade do card ${cardId}:`, error);
+        if (error.response) {
+            console.error("Detalhes do erro do backend:", error.response.data);
+            console.error("Status do erro:", error.response.status);
+            console.error("Headers do erro:", error.response.headers);
+        } else if (error.request) {
+            console.error("Nenhuma resposta recebida para a requisição:", error.request);
+        } else {
+            console.error("Erro na configuração da requisição:", error.message);
+        }
         throw error.response?.data?.message || error.message || 'Erro desconhecido ao marcar dificuldade do card';
     }
 }
@@ -133,7 +141,7 @@ export const getStudyCardsByTag = async (tagId) => {
 
 export const resetCardProgress = async (cardId) => {
     try {
-        const response = await api.post(`/cards/${cardId}/reset-progress`); 
+        const response = await api.post(`/cards/${cardId}/reset-progress`);
         return response.data;
     } catch (error) {
         console.error(`Erro ao resetar progresso do card ${cardId}:`, error);
@@ -153,7 +161,7 @@ export const resetDeckProgress = async (deckId) => {
 
 export const getAllTags = async () => {
   try {
-    const response = await api.get('/tags'); 
+    const response = await api.get('/tags');
     return response.data;
   } catch (error) {
     console.error('Erro ao obter tags:', error);

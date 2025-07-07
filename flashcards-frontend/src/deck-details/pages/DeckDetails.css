@@ -1,0 +1,554 @@
+/* src/deck-details/pages/DeckDetails.css */
+
+:root {
+  --background-color: #1a1a2e;
+  --text-color: #f0f2f5;
+  --primary-button-bg: #4a90e2;
+  --primary-button-hover-bg: #3a7bd2;
+  --danger-button-bg: #dc3545;
+  --danger-button-hover-bg: #c82333;
+  --secondary-button-bg: #6c757d;
+  --secondary-button-hover-bg: #5a6268;
+  --card-bg: #2a3e6a; /* Fundo para os cards individuais */
+  --border-color: #3f51b5; /* Cor da borda ou linha divisória */
+  --input-bg: #334a70;
+  --input-border: #4a5d80;
+}
+
+.deck-details-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+.deck-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha sutil */
+}
+
+.deck-details-header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.deck-details-header .btn-back {
+  background-color: var(--secondary-button-bg);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deck-details-header .btn-back:hover {
+  background-color: var(--secondary-button-hover-bg);
+}
+
+.deck-details-main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  max-width: 900px; /* Largura máxima para o conteúdo */
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.deck-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+  gap: 20px; /* Espaçamento entre os itens */
+}
+
+.deck-header-actions h1 {
+  font-size: 2.8em;
+  color: var(--text-color);
+  margin: 0;
+  flex-grow: 1; /* Permite que o título ocupe espaço */
+  text-align: left;
+}
+
+.deck-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.deck-actions .btn-primary,
+.deck-actions .btn-danger {
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.deck-actions .btn-primary {
+  background-color: var(--primary-button-bg);
+}
+
+.deck-actions .btn-primary:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.deck-actions .btn-danger {
+  background-color: var(--danger-button-bg);
+}
+
+.deck-actions .btn-danger:hover {
+  background-color: var(--danger-button-hover-bg);
+}
+
+.error-message, .no-deck-found {
+  color: var(--danger-button-bg);
+  background-color: rgba(220, 53, 69, 0.2);
+  border: 1px solid var(--danger-button-bg);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.no-deck-found .btn-primary {
+  margin-top: 15px;
+  background-color: var(--primary-button-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.no-deck-found .btn-primary:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.cards-section {
+  width: 100%;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.cards-section h2 {
+  font-size: 2em;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-add-card {
+  background-color: var(--primary-button-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-add-card:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.no-cards-message {
+  font-size: 1.1em;
+  color: var(--text-color);
+  opacity: 0.8;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-item {
+  background-color: #334a70; /* Cor ligeiramente diferente para cada card item */
+  border-radius: 10px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  flex-wrap: wrap; /* Permite quebrar linha */
+  gap: 10px;
+}
+
+.card-item:hover {
+  transform: translateY(-3px);
+}
+
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0; /* Permite encolher */
+}
+
+.card-front-preview,
+.card-back-preview,
+.card-tags-preview {
+  font-size: 0.95em;
+  color: var(--text-color);
+  white-space: nowrap; /* Impede quebra de linha */
+  overflow: hidden; /* Esconde o excesso */
+  text-overflow: ellipsis; /* Adiciona "..." */
+}
+
+.card-front-preview strong,
+.card-back-preview strong,
+.card-tags-preview strong {
+  color: var(--primary-button-bg);
+  margin-right: 5px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: 15px; /* Espaçamento dos botões */
+}
+
+.btn-action {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-action.edit {
+  color: var(--primary-button-bg);
+}
+
+.btn-action.edit:hover {
+  background-color: rgba(74, 144, 226, 0.2);
+}
+
+.btn-action.delete {
+  color: var(--danger-button-bg);
+}
+
+.btn-action.delete:hover {
+  background-color: rgba(220, 53, 69, 0.2);
+}
+
+/* Estilos para o Modal (reutilizados do Dashboard, mas com ajustes) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--background-color);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  position: relative;
+}
+
+.modal-content h2 {
+  font-size: 2em;
+  margin-bottom: 25px;
+  color: var(--primary-button-bg);
+  text-align: center;
+}
+
+.modal-content .form-group {
+  margin-bottom: 20px;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--text-color);
+  font-size: 1.1em;
+}
+
+.modal-content input[type="text"],
+.modal-content textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-size: 1em;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content textarea:focus {
+  border-color: var(--primary-button-bg);
+  outline: none;
+}
+
+.modal-content textarea {
+  resize: vertical; /* Permite redimensionar verticalmente */
+  min-height: 80px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.modal-actions .btn-primary,
+.modal-actions .btn-secondary,
+.modal-actions .btn-danger {
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.modal-actions .btn-primary {
+  background-color: var(--primary-button-bg);
+  color: white;
+}
+
+.modal-actions .btn-primary:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.modal-actions .btn-secondary {
+  background-color: var(--secondary-button-bg);
+  color: white;
+}
+
+.modal-actions .btn-secondary:hover {
+  background-color: var(--secondary-button-hover-bg);
+}
+
+.modal-actions .btn-danger {
+  background-color: var(--danger-button-bg);
+  color: white;
+}
+
+.modal-actions .btn-danger:hover {
+  background-color: var(--danger-button-hover-bg);
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+  .deck-details-header {
+    flex-direction: column;
+    padding: 15px 20px;
+    align-items: flex-start;
+  }
+  .deck-details-header .btn-back {
+    margin-bottom: 15px;
+  }
+  .deck-details-header .logo {
+    width: 100%;
+    text-align: center;
+  }
+
+  .deck-header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .deck-header-actions h1 {
+    font-size: 2.2em;
+    text-align: center;
+    width: 100%;
+  }
+
+  .deck-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .deck-actions .btn-primary,
+  .deck-actions .btn-danger {
+    width: 100%;
+    max-width: 250px; /* Limita a largura em telas menores */
+  }
+
+  .cards-section {
+    padding: 20px;
+  }
+
+  .cards-section h2 {
+    font-size: 1.8em;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .btn-add-card {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .card-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .card-content {
+    width: 100%;
+  }
+
+  .card-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-left: 0;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-actions .btn-primary,
+  .modal-actions .btn-secondary,
+  .modal-actions .btn-danger {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .deck-details-header {
+    padding: 10px 15px;
+  }
+  .deck-details-header .logo {
+    font-size: 20px;
+  }
+  .deck-details-header .btn-back {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .deck-details-main-content {
+    padding: 20px 10px;
+  }
+
+  .deck-header-actions h1 {
+    font-size: 1.8em;
+  }
+
+  .deck-actions .btn-primary,
+  .deck-actions .btn-danger {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+
+  .cards-section h2 {
+    font-size: 1.5em;
+  }
+
+  .btn-add-card {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+
+  .card-front-preview,
+  .card-back-preview,
+  .card-tags-preview {
+    font-size: 0.85em;
+  }
+
+  .btn-action {
+    font-size: 1em;
+  }
+
+  .modal-content h2 {
+    font-size: 1.8em;
+  }
+
+  .modal-content label {
+    font-size: 1em;
+  }
+
+  .modal-content input[type="text"],
+  .modal-content textarea {
+    font-size: 0.9em;
+    padding: 10px;
+  }
+
+  .modal-actions .btn-primary,
+  .modal-actions .btn-secondary,
+  .modal-actions .btn-danger {
+    padding: 10px 20px;
+    font-size: 0.9em;
+  }
+}
