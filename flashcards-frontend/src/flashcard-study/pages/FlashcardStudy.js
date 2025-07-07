@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './FlashcardStudy.css';
-import { getStudyCardsByDeck, markCardDifficulty } from '../../dashboard/services/dashboardService';
+import { getStudyCardsByDeck, markCardDifficulty, getStudyCardsByTag } from '../../dashboard/services/dashboardService';
 
-function FlashcardStudy({ navigateTo, deckId }) {
+function FlashcardStudy({ navigateTo, deckId, tagId }) { 
   const [cards, setCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [studyComplete, setStudyComplete] = useState(false);
+  const [isStudyByTag, setIsStudyByTag] = useState(false);
 
   const fetchCards = useCallback(async () => {
     setLoading(true);
@@ -17,8 +18,12 @@ function FlashcardStudy({ navigateTo, deckId }) {
       let responseData;
       if (deckId) {
         responseData = await getStudyCardsByDeck(deckId);
+        setIsStudyByTag(false);
+      } else if (tagId) { 
+        responseData = await getStudyCardsByTag(tagId); 
+        setIsStudyByTag(true); 
       } else {
-        setError("Nenhum baralho especificado para estudo. Voltando ao Dashboard.");
+        setError("Nenhum baralho ou tag especificada para estudo. Voltando ao Dashboard.");
         navigateTo('dashboard');
         return;
       }
@@ -43,7 +48,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
     } finally {
       setLoading(false);
     }
-  }, [deckId, navigateTo]);
+  }, [deckId, tagId, navigateTo]); 
 
   useEffect(() => {
     fetchCards();
@@ -138,15 +143,22 @@ function FlashcardStudy({ navigateTo, deckId }) {
     return (
       <div className="study-container">
         <header className="study-header">
-          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div>
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>Voltar para Baralhos</button>
         </header>
         <main className="study-main-content">
           <div className="no-cards-for-study">
-            <p>Não há cartões para revisar neste baralho no momento.</p>
+            <p>
+              {isStudyByTag ?
+                `Não há cartões para revisar com esta tag no momento.` :
+                `Não há cartões para revisar neste baralho no momento.`
+              }
+            </p>
             <p>Parabéns! Você está em dia, ou precisa adicionar mais cartões.</p>
             <button className="btn-primary" onClick={() => navigateTo('dashboard')}>Voltar ao Dashboard</button>
-            <button className="btn-secondary" onClick={() => navigateTo('deckDetails', { deckId })}>Gerenciar Cartões</button>
+            {!isStudyByTag && (
+              <button className="btn-secondary" onClick={() => navigateTo('deckDetails', { deckId })}>Gerenciar Cartões</button>
+            )}
           </div>
         </main>
       </div>

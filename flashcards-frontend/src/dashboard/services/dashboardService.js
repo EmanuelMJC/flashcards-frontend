@@ -131,7 +131,7 @@ export const getStudyCardsByDeck = async (deckId) => {
 
 export const getStudyCardsByTag = async (tagId) => {
     try {
-        const response = await api.get(`/tags/${tagId}/study`);
+        const response = await api.get(`/tags/${tagId}/study`); 
         return response.data;
     } catch (error) {
         console.error(`Erro ao obter cards para estudo da tag ${tagId}:`, error);
@@ -164,7 +164,7 @@ export const getAllTags = async () => {
     const response = await api.get('/tags');
     return response.data;
   } catch (error) {
-    console.error('Erro ao obter tags:', error);
-    throw error.response?.data?.message || error.message || 'Erro desconhecido ao obter tags';
+    console.error('Erro ao buscar todas as tags:', error);
+    throw error;
   }
 }

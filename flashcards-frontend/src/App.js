@@ -36,7 +36,10 @@ function App() {
       case 'deckDetails':
         return <DeckDetails navigateTo={navigateTo} deckId={pageParams.deckId} />;
       case 'study':
-        return <FlashcardStudy navigateTo={navigateTo} deckId={pageParams.deckId} />;
+        return <FlashcardStudy navigateTo={navigateTo}
+                               deckId={pageParams.deckId}
+                               tagId={pageParams.tagId} 
+               />;
       case 'report':
         return <Report navigateTo={navigateTo} />;
       case 'login':

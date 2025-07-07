@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
-import { getDecks, createDeck, updateDeck, deleteDeck } from '../services/dashboardService';
+import { getDecks, createDeck, updateDeck, deleteDeck, getAllTags } from '../services/dashboardService';
 import { logoutUser } from '../../login/services/loginService';
 import CreateDeckModal from '../components/CreateDeckModal';
 import EditDeckModal from '../components/EditDeckModal';
@@ -8,34 +8,39 @@ import EditDeckModal from '../components/EditDeckModal';
 function Dashboard({ navigateTo }) {
   const username = localStorage.getItem('username').replace(/^"|"$/g, '');
   const [decks, setDecks] = useState([]);
+  const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentDeck, setCurrentDeck] = useState(null);
 
-  const fetchDecks = async () => {
+  const fetchDecksAndTags = async () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await getDecks();
-      setDecks(data);
+      const decksData = await getDecks();
+      setDecks(decksData);
+
+      const tagsData = await getAllTags(); 
+      setTags(tagsData);
+
     } catch (err) {
-      setError(err.message || 'Erro desconhecido ao buscar baralhos');
-      console.error('Erro ao buscar baralhos:', err);
+      setError(err.message || 'Erro desconhecido ao buscar dados');
+      console.error('Erro ao buscar decks e tags:', err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchDecks();
+    fetchDecksAndTags(); 
   }, []);
 
   const handleCreateDeck = async (deckName, deckDescription) => {
     try {
       await createDeck(deckName, deckDescription);
-      fetchDecks();
+      fetchDecksAndTags(); 
       setIsCreateModalOpen(false);
     } catch (err) {
       setError(err.message || 'Erro desconhecido ao criar baralho');
@@ -48,7 +53,7 @@ function Dashboard({ navigateTo }) {
     if (window.confirm('Tem certeza que deseja excluir este baralho e todos os seus cartões?')) {
       try {
         await deleteDeck(deckId);
-        fetchDecks();
+        fetchDecksAndTags(); 
       } catch (err) {
         setError(err.message || 'Erro desconhecido ao excluir baralho');
         console.error('Erro ao excluir baralho:', err);
@@ -60,7 +65,7 @@ function Dashboard({ navigateTo }) {
   const handleEditDeck = async (deckId, newName, newDescription) => {
     try {
       await updateDeck(deckId, newName, newDescription);
-      fetchDecks();
+      fetchDecksAndTags();
       setIsEditModalOpen(false);
       setCurrentDeck(null);
     } catch (err) {
@@ -97,7 +102,7 @@ function Dashboard({ navigateTo }) {
       <header className="dashboard-header">
         <div className="logo">DECOREBA</div>
         <div className="user-info">
-          <span>{username}</span>
+          <span>Olá, {username}!</span>
           <button className="btn-logout" onClick={logoutUser}>Sair</button>
         </div>
       </header>
@@ -110,6 +115,23 @@ function Dashboard({ navigateTo }) {
         <button className="btn-criar-baralho" onClick={() => setIsCreateModalOpen(true)}>
           Criar Novo Baralho
         </button>
+
+        {tags.length > 0 && (
+          <div className="tags-section">
+            <h2>Estudar por Tags:</h2>
+            <div className="tag-list">
+              {tags.map(tag => (
+                <button
+                  key={tag.id}
+                  className="btn-tag-study"
+                  onClick={() => navigateTo('study', { tagId: tag.id })} 
+                >
+                  {tag.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {decks.length === 0 ? (
           <div className="no-decks-message">
