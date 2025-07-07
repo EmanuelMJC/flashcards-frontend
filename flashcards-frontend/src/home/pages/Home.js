@@ -15,7 +15,7 @@ function Home({ navigateTo }) {
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="logo">DECOREBA</div>
+        <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div>
         <nav >
           {isLoggedIn ? (
             <div className="user-info">
@@ -46,7 +46,7 @@ function Home({ navigateTo }) {
               método de repetição espaçada otimiza sua memória e garante que o
               conhecimento fique na sua cabeça por muito mais tempo.
             </p>
-            <button className="btn-comece-agora" onClick={() => navigateTo('dashboard')}>Comece agora</button>
+            <button className="btn-comece-agora" onClick={() => navigateTo('login')}>Comece agora</button>
           </div>
 
           <div className="flashcards-examples">
@@ -59,25 +59,6 @@ function Home({ navigateTo }) {
           </div>
         </div>
       </main>
-
-      <div style={{
-        position: 'fixed',
-        bottom: '0',
-        left: '0',
-        width: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        padding: '15px 0',
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '20px',
-        zIndex: 9999,
-        boxSizing: 'border-box'
-      }}>
-        <button onClick={() => navigateTo('home')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Home</button>
-        <button onClick={() => navigateTo('dashboard')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Dashboard</button>
-        <button onClick={() => navigateTo('study')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Estudo</button>
-        <button onClick={() => navigateTo('report')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Relatório</button>
-      </div>
     </div>
   );
 }

@@ -73,7 +73,7 @@ function Register({ navigateTo }) {
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="logo">DECOREBA</div>
+        <div className="logo" onClick={() => navigateTo('home')} style={{ cursor: 'pointer' }}>DECOREBA</div>
       </header>
 
       <main className="hero-section">
