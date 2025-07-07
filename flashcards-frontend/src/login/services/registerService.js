@@ -4,7 +4,7 @@ export const registerUser = async (username, email, password) => {
       throw new Error('Preencha todos os campos');
     }
 
-    const response = await fetch('http://localhost:3000/auth/register', {
+    const response = await fetch('http://localhost:3001/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,24 +1,41 @@
 import axios from 'axios';
 
+const API_URL = 'http://localhost:3001'; 
+
 const api = axios.create({
-  baseURL: 'https://localhost:8081', // substituir pela url certa
+  baseURL: API_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Interceptores podem ser adicionados aqui
 api.interceptors.request.use(
   (config) => {
-    // Colocar o token aqui depois de configurar o back
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    const token = localStorage.getItem('authToken'); 
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.warn('Requisição não autorizada, token possivelmente expirado. Redirecionando para o login.');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('id');
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+
+      window.location.href = '/login'; 
+    }
     return Promise.reject(error);
   }
 );
