@@ -102,7 +102,7 @@ function FlashcardStudy({ navigateTo, deckId, tagId }) {
       if (currentCardIndex < cards.length - 1) {
         setCurrentCardIndex(currentCardIndex + 1);
         setIsFlipped(false);
-      } else {
+      } else if (deckId !== null) {
         setStudyComplete(true);
         const sessionData = {
           deckId: deckId,
@@ -111,6 +111,8 @@ function FlashcardStudy({ navigateTo, deckId, tagId }) {
         };
         await registerSession(sessionData);
         console.log('Sessão de estudo registrada com sucesso:', sessionData);
+      } else {
+        setStudyComplete(true);
       }
     } catch (err) {
       setError(err.message || `Erro ao marcar dificuldade "${difficultyString}" do cartão.`);
@@ -118,7 +120,7 @@ function FlashcardStudy({ navigateTo, deckId, tagId }) {
       if (currentCardIndex < cards.length - 1) {
         setCurrentCardIndex(currentCardIndex + 1);
         setIsFlipped(false);
-      } else {
+      } else if (deckId !== null) {
         setStudyComplete(true);
          const sessionData = {
           deckId: deckId,
@@ -127,6 +129,8 @@ function FlashcardStudy({ navigateTo, deckId, tagId }) {
         };
         await registerSession(sessionData);
         console.log('Sessão de estudo registrada com sucesso:', sessionData);
+      } else {
+        setStudyComplete(true);
       }
     }
   };
@@ -204,6 +208,7 @@ function FlashcardStudy({ navigateTo, deckId, tagId }) {
             <div className="study-complete-actions">
               <button className="btn-primary" onClick={() => navigateTo('dashboard')}>Voltar ao Dashboard</button>
               <button className="btn-secondary" onClick={handleRestartStudy}>Revisar Novamente (Todos os Cards)</button>
+              <button className="btn-secondary" onClick={() => navigateTo('report')}>Relatório do estudo</button>
             </div>
           </div>
         </main>
