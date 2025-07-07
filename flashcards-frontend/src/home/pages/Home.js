@@ -16,23 +16,21 @@ function Home({ navigateTo }) {
     <div className="home-container">
       <header className="home-header">
         <div className="logo">DECOREBA</div>
-        <nav className="auth-buttons">
+        <nav >
           {isLoggedIn ? (
             <div className="user-info">
-              <span className="username">{username}</span>
-              <button className="btn-logout" onClick={handleLogout}>
-                Logout
-              </button>
+              <span>{username}</span>
+              <button className="btn-logout" onClick={logoutUser}>Sair</button>
             </div>
           ) : (
-            <>
+            <div className="auth-buttons">
               <button className="btn-sign-in" onClick={() => navigateTo('register')}>
                 Sign In
               </button>
               <button className="btn-login" onClick={() => navigateTo('login')}>
                 Login
               </button>
-            </>
+            </div>
           )}
         </nav>
       </header>

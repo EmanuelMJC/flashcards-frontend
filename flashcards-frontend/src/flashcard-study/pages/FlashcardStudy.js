@@ -89,6 +89,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
         setIsFlipped(false);
       } else {
         setStudyComplete(true);
+        /// TODO ADD REPORT
       }
     } catch (err) {
       setError(err.message || `Erro ao marcar dificuldade "${difficultyString}" do cartão.`);
@@ -98,6 +99,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
         setIsFlipped(false);
       } else {
         setStudyComplete(true);
+        /// TODO ADD REPORT
       }
     }
   };

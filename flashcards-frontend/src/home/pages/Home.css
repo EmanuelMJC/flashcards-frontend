@@ -147,6 +147,8 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  font-size: 18px;
+  color: var(--text-color);
 }
 
 .username {
@@ -155,17 +157,18 @@
 }
 
 .btn-logout {
-  background-color: #dc3545;
+  background-color: var(--status-red); 
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
 .btn-logout:hover {
-  background-color: #c82333;
+  background-color: #c82333; 
 }
 
 .auth-buttons {
