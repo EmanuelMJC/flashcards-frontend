@@ -3,25 +3,31 @@
   --text-color: #f0f2f5;      
   --primary-button-bg: #4a90e2; 
   --primary-button-hover-bg: #3a7bd2;
-  --header-bg: transparent;
+  --card-bg: #2a3e6a;        
+  --header-bg: transparent;   
+  --status-green: #28a745;
+  --status-red: #dc3545;
+  --status-info: #17a2b8; 
+  --status-warning: #ffc107; 
+  --secondary-button-bg: #6c757d; 
 }
 
 .dashboard-container {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background-color: var(--background-color);
   color: var(--text-color);
-  font-family: 'Arial', sans-serif;
-  display: flex;
-  flex-direction: column;
+  font-family: 'Arial', sans-serif; 
   overflow: hidden;
 }
 
 .dashboard-header {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
-  background-color: var(--header-bg);
+  padding: 20px 50px; 
+  background-color: var(--header-bg); 
   width: 100%;
   box-sizing: border-box;
 }
@@ -33,70 +39,269 @@
 }
 
 .dashboard-header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   font-size: 18px;
   color: var(--text-color);
+}
+
+.dashboard-header .btn-logout {
+  background-color: var(--status-red); 
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-header .btn-logout:hover {
+  background-color: #c82333; 
 }
 
 .dashboard-main-content {
   flex-grow: 1; 
   display: flex;
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center;     
-  padding: 50px;
-  text-align: center; 
+  flex-direction: column;
+  align-items: center; 
+  padding: 40px 20px; 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  width: 100%; 
+  box-sizing: border-box; 
 }
 
 .dashboard-main-content h1 {
-  font-size: 60px; 
-  margin-bottom: 30px; 
+  font-size: 48px; 
+  margin-bottom: 50px;
   color: var(--text-color);
+  text-align: center;
 }
 
-.no-decks-message p {
-  font-size: 24px;
-  margin-bottom: 40px;
-  color: var(--text-color);
+.error-message {
+  color: var(--status-red);
+  background-color: rgba(220, 53, 69, 0.2); 
+  border: 1px solid var(--status-red);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%; 
+  box-sizing: border-box;
 }
 
 .btn-criar-baralho {
   background-color: var(--primary-button-bg);
   color: var(--text-color);
   border: none;
-  padding: 15px 40px; 
-  border-radius: 10px; 
-  font-size: 22px;
+  padding: 15px 30px; 
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
   transition: background-color 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .btn-criar-baralho:hover {
   background-color: var(--primary-button-hover-bg);
 }
 
-@media (max-width: 768px) {
-  .dashboard-header {
-    flex-direction: column;
-    padding: 20px;
-  }
+.no-decks-message {
+  text-align: center;
+  color: var(--text-color); 
+  opacity: 0.7; 
+  font-size: 1.1em;
+  padding: 30px;
+  border: 1px dashed rgba(255, 255, 255, 0.2); 
+  border-radius: 15px; 
+  margin-top: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  .dashboard-header .user-info {
-    margin-top: 15px;
+.decks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 25px; 
+  padding: 20px 0;
+  width: 100%; 
+}
+
+.deck-card {
+  background-color: var(--card-bg); 
+  border-radius: 15px; 
+  padding: 25px; 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease-in-out;
+  border-left: none; 
+}
+
+.deck-card:hover {
+  transform: translateY(-5px);
+}
+
+.deck-card h3 {
+  color: var(--text-color);
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+.deck-card .deck-description {
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  flex-grow: 1; 
+}
+
+.deck-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.9em;
+  color: var(--text-color);
+  margin-bottom: 15px;
+}
+
+.deck-stats strong {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.deck-stats .cards-for-review {
+  color: var(--primary-button-bg); 
+  font-weight: bold;
+}
+
+.deck-actions {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px; 
+  margin-top: 15px;
+}
+
+.deck-actions .btn-action {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+  flex-grow: 1; 
+  min-width: 100px; 
+  color: white; 
+}
+
+.deck-actions .btn-view-cards {
+  background-color: var(--status-info); 
+}
+.deck-actions .btn-view-cards:hover {
+  background-color: #138496;
+}
+
+.deck-actions .btn-study {
+  background-color: var(--status-green); 
+}
+.deck-actions .btn-study:hover {
+  background-color: #218838;
+}
+
+.deck-actions .btn-edit {
+  background-color: var(--status-warning); 
+  color: #333; 
+}
+.deck-actions .btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.deck-actions .btn-delete {
+  background-color: var(--status-red); 
+}
+.deck-actions .btn-delete:hover {
+  background-color: #c82333;
+}
+
+.debug-nav-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 9999;
+  box-sizing: border-box;
+}
+
+.debug-nav-buttons button {
+  padding: 10px 20px;
+  background-color: lightgray;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.debug-nav-buttons button:hover {
+  background-color: darkgray;
+  color: white;
+}
+
+@media (max-width: 900px) {
+  .dashboard-header {
+    padding: 20px 30px;
   }
 
   .dashboard-main-content h1 {
-    font-size: 45px;
-    margin-bottom: 20px;
+    font-size: 40px;
+    margin-bottom: 40px;
   }
 
-  .no-decks-message p {
-    font-size: 20px;
+  .deck-card {
+    min-width: 250px; 
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+    padding: 15px 20px;
+  }
+  .dashboard-header .user-info {
+    margin-top: 10px;
+  }
+
+  .dashboard-main-content h1 {
+    font-size: 32px;
     margin-bottom: 30px;
+  }
+
+  .decks-grid {
+    flex-direction: column; 
+    gap: 15px;
+  }
+
+  .deck-card {
+    min-width: unset; 
+    width: 90%; 
+    max-width: 350px; 
+    margin: 0 auto; 
+    padding: 20px;
   }
 
   .btn-criar-baralho {
     font-size: 18px;
-    padding: 12px 30px;
+    padding: 12px 20px;
   }
 }

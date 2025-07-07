@@ -1,240 +1,391 @@
 :root {
   --background-color: #1a1a2e; 
   --text-color: #f0f2f5;      
-  --flashcard-bg: #3f51b5;   
-  --flashcard-bg-back: #2a3e6a; 
-  --button-show-back-bg: #34495e; 
-  --button-show-back-hover-bg: #2c3e50;
-  --difficulty-button-bg: #4a90e2; 
-  --difficulty-button-hover-bg: #3a7bd2;
-
-  --status-green: #28a745;
-  --status-orange: #ffc107;
-  --status-red: #dc3545;
+  --primary-button-bg: #4a90e2; 
+  --primary-button-hover-bg: #3a7bd2;
+  --flashcard-bg-primary: #3f51b5; 
+  --flashcard-bg-secondary: #2a3e6a; 
+  --header-bg: transparent; 
+  
+  --status-green: #28a745;    
+  --status-red: #dc3545;     
+  --status-yellow: #ffc107; 
+  --status-orange-dark: #fd7e14;
+  --status-purple: #6f42c1;  
 }
 
-.flashcard-study-container {
+.study-container {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background-color: var(--background-color);
   color: var(--text-color);
-  font-family: 'Arial', sans-serif; 
-  display: flex;
-  flex-direction: column; 
-  overflow: hidden; 
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
 }
 
-.flashcard-study-header {
+.study-header {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 50px; 
-  background-color: transparent; 
+  padding: 20px 50px;
+  background-color: var(--header-bg);
   width: 100%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
-.flashcard-study-header .logo {
+.study-header .logo {
   font-size: 24px;
   font-weight: bold;
   color: var(--text-color);
 }
 
-.flashcard-study-header .user-info {
-  font-size: 18px;
+.study-header .btn-back {
+  background-color: var(--primary-button-bg); 
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.study-header .btn-back:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+
+.study-main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  padding: 20px;
+  max-width: 800px; 
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.study-main-content h1 {
+  font-size: 3em;
+  margin-bottom: 30px;
   color: var(--text-color);
 }
 
-.flashcard-study-main-content {
-  flex-grow: 1; 
-  display: flex;
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center;     
-  padding: 50px;
-  text-align: center; 
-}
-
-.study-header-info {
-  display: flex;
-  align-items: baseline; 
-  gap: 30px;
-  margin-bottom: 50px; 
+.error-message {
+  color: var(--status-red);
+  background-color: rgba(220, 53, 69, 0.2); 
+  border: 1px solid var(--status-red);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
   width: 100%;
-  max-width: 800px; 
-  justify-content: space-between; 
-  padding: 0 20px; 
+  max-width: 500px;
   box-sizing: border-box;
 }
 
-.deck-title {
-  font-size: 50px; 
-  font-weight: bold;
-  margin: 0; 
-  color: var(--text-color);
+.no-cards-for-study,
+.study-complete {
+  background-color: var(--flashcard-bg-secondary); 
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-.flashcard-status-indicators {
-  font-size: 28px; 
-  font-weight: bold;
+.no-cards-for-study p,
+.study-complete p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-bottom: 0;
+}
+
+.no-cards-for-study .btn-primary,
+.no-cards-for-study .btn-secondary,
+.study-complete .btn-primary,
+.study-complete .btn-secondary {
+  background-color: var(--primary-button-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  width: auto; 
+}
+
+.no-cards-for-study .btn-secondary,
+.study-complete .btn-secondary {
+  background-color: var(--secondary-button-bg); 
+}
+
+.no-cards-for-study .btn-primary:hover,
+.study-complete .btn-primary:hover {
+  background-color: var(--primary-button-hover-bg);
+}
+.no-cards-for-study .btn-secondary:hover,
+.study-complete .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.study-complete h2 {
+  font-size: 2.5em;
+  color: var(--status-green); 
+  margin-bottom: 20px;
+}
+
+.study-complete-actions {
   display: flex;
   gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.status-green {
-  color: var(--status-green);
-}
-
-.status-orange {
-  color: var(--status-orange);
-}
-
-.status-red {
-  color: var(--status-red);
+.study-progress {
+  font-size: 1.1em;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 20px;
 }
 
 .flashcard {
-  background-color: var(--flashcard-bg); 
   width: 100%;
-  max-width: 800px; 
+  max-width: 600px; 
   height: 350px; 
-  border-radius: 25px; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
-  padding: 20px; 
-  box-sizing: border-box;
-  transition: background-color 0.3s ease-in-out; 
-}
-
-.flashcard.flashcard-back-active {
-  background-color: var(--flashcard-bg-back); 
-}
-
-.flashcard-text {
-  font-size: 38px; 
-  color: var(--text-color);
-  text-align: center;
-  margin: 0; 
-  user-select: none; 
-}
-
-.btn-show-back {
-  background-color: var(--button-show-back-bg);
-  color: var(--text-color);
-  border: none;
-  padding: 15px 40px;
-  border-radius: 10px;
-  font-size: 20px;
+  perspective: 1000px; 
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
 }
 
-.btn-show-back:hover {
-  background-color: var(--button-show-back-hover-bg);
+.flashcard-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d; 
+  border-radius: 20px; 
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); 
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.flashcard-front {
+  background-color: var(--flashcard-bg-primary); 
+}
+
+.flashcard-back {
+  background-color: var(--flashcard-bg-secondary); 
+  transform: rotateY(180deg); 
+  font-size: 1.2em; 
+  font-weight: normal;
+}
+
+.flashcard-back p {
+  margin-bottom: 15px;
+}
+
+.flashcard-tags {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.flashcard-tag {
+  display: inline-block;
+  background-color: rgba(74, 144, 226, 0.2); 
+  color: var(--primary-button-bg);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.8em;
+  border: 1px solid rgba(74, 144, 226, 0.4);
 }
 
 .difficulty-buttons {
   display: flex;
   gap: 15px; 
-  flex-wrap: wrap; 
-  justify-content: center; 
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 650px;
+  width: 100%;
 }
 
 .btn-difficulty {
-  background-color: var(--difficulty-button-bg);
-  color: var(--text-color);
-  border: none;
-  padding: 12px 25px;
+  padding: 15px 25px; 
   border-radius: 8px; 
-  font-size: 18px;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  font-size: 1.1em;
+  font-weight: bold;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.1s ease-in-out;
+  flex: 1; 
+  min-width: 100px; 
+  max-width: 150px; 
 }
 
 .btn-difficulty:hover {
-  background-color: var(--difficulty-button-hover-bg);
-  transform: translateY(-2px); 
+  transform: translateY(-3px); 
 }
 
-@media (max-width: 900px) {
-  .study-header-info {
-    flex-direction: column; 
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    padding: 0 15px; 
-  }
-
-  .deck-title {
-    font-size: 40px;
-  }
-
-  .flashcard-status-indicators {
-    font-size: 24px;
-    gap: 10px;
-  }
-
-  .flashcard {
-    max-width: 90%; 
-    height: 300px;
-  }
-
-  .flashcard-text {
-    font-size: 30px;
-  }
-
-  .btn-show-back,
-  .btn-difficulty {
-    padding: 12px 30px;
-    font-size: 16px;
-  }
-
-  .difficulty-buttons {
-    gap: 10px;
-  }
+.btn-difficulty.again {
+  background-color: var(--status-red);
+}
+.btn-difficulty.again:hover {
+  background-color: #c82333;
 }
 
-@media (max-width: 600px) {
-  .flashcard-study-header {
-    flex-direction: column; 
+.btn-difficulty.hard {
+  background-color: var(--status-orange-dark); 
+}
+.btn-difficulty.hard:hover {
+  background-color: #cb6e11;
+}
+
+.btn-difficulty.good {
+  background-color: var(--status-yellow);
+  color: #333; 
+}
+.btn-difficulty.good:hover {
+  background-color: #e0a800;
+}
+
+.btn-difficulty.easy {
+  background-color: var(--status-green);
+}
+.btn-difficulty.easy:hover {
+  background-color: #218838;
+}
+
+.btn-difficulty.very-easy {
+  background-color: var(--status-purple); 
+}
+.btn-difficulty.very-easy:hover {
+  background-color: #5d34a4;
+}
+
+@media (max-width: 768px) {
+  .study-header {
+    flex-direction: column;
     padding: 15px 20px;
   }
-  .flashcard-study-header .user-info {
+  .study-header .btn-back {
     margin-top: 10px;
   }
 
-  .deck-title {
-    font-size: 32px;
+  .study-main-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
   }
 
-  .flashcard-status-indicators {
+  .flashcard {
+    height: 300px;
+    max-width: 450px;
+  }
+
+  .flashcard-front, .flashcard-back {
+    font-size: 1.5em;
+  }
+
+  .flashcard-back {
+    font-size: 1.1em;
+  }
+
+  .difficulty-buttons {
+    gap: 10px; 
+    justify-content: space-around; 
+  }
+
+  .btn-difficulty {
+    padding: 12px 20px;
+    font-size: 1em;
+    min-width: unset; 
+    max-width: unset;
+    flex-basis: 48%; 
+  }
+}
+
+@media (max-width: 480px) {
+  .study-header {
+    padding: 10px 15px;
+  }
+  .study-header .logo {
     font-size: 20px;
+  }
+  .study-header .btn-back {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .study-main-content h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
   }
 
   .flashcard {
     height: 250px;
+    max-width: 300px;
   }
 
-  .flashcard-text {
-    font-size: 24px;
+  .flashcard-front, .flashcard-back {
+    font-size: 1.2em;
+    padding: 15px;
   }
 
-  .btn-show-back,
-  .btn-difficulty {
-    padding: 10px 20px;
-    font-size: 14px;
+  .flashcard-back {
+    font-size: 1em;
   }
-  
+
   .difficulty-buttons {
     flex-direction: column; 
-    gap: 8px; 
+    gap: 8px;
+    align-items: center;
   }
-}
+  .btn-difficulty {
+    width: 90%; 
+    padding: 10px 20px;
+    font-size: 1em;
+  }
 
-body {
-    margin: 0;
+  .no-cards-for-study, .study-complete {
+    padding: 25px;
+  }
+  .no-cards-for-study p, .study-complete p {
+    font-size: 1em;
+  }
 }
