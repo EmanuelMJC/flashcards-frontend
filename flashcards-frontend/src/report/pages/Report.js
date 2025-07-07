@@ -2,7 +2,7 @@ import React from 'react';
 import './Report.css'; 
 
 function Report() {
-  const username = "Username";
+  const username = JSON.stringify(localStorage.getItem('username')).replace(/^"|"$/g, ''); 
 
   const reportData = {
     totalReviewed: 150,
