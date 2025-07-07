@@ -2,14 +2,14 @@ import React from 'react';
 import './Dashboard.css'; 
 
 function Dashboard() {
-  const username = "Username"; 
+  const userData = JSON.stringify(localStorage.getItem('username')).replace(/^"|"$/g, ''); 
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="logo">DECOREBA</div>
         <div className="user-info">
-          <span>{username}</span>
+          <span>{userData}</span>
         </div>
       </header>
 
