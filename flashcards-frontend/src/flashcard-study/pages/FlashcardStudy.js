@@ -192,6 +192,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
             <div className="study-complete-actions">
               <button className="btn-primary" onClick={() => navigateTo('dashboard')}>Voltar ao Dashboard</button>
               <button className="btn-secondary" onClick={handleRestartStudy}>Revisar Novamente (Todos os Cards)</button>
+              <button className="btn-secondary" onClick={() => navigateTo('report')}>Relatório do estudo</button>
             </div>
           </div>
         </main>

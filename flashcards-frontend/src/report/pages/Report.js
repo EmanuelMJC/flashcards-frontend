@@ -50,7 +50,7 @@ function Report({ navigateTo }) {
   return (
     <div className="report-container">
       <header className="report-header">
-        <div className="logo" onClick={() => navigateTo('home')}>DECOREBA</div>
+        <div className="logo" onClick={() => navigateTo('dashboard')}>DECOREBA</div>
         <nav >
           {isLoggedIn ? (
             <div className="user-info">
