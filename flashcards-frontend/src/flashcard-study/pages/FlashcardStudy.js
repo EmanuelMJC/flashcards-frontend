@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react'; // Importe useRef
 import './FlashcardStudy.css';
 import { getStudyCardsByDeck, markCardDifficulty, getStudyCardsByTag } from '../../dashboard/services/dashboardService';
 import { registerSession } from '../../report/services/reportService';
@@ -14,11 +14,18 @@ function FlashcardStudy({ navigateTo, deckId, tagId }) {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
 
+  // NOVOS ESTADOS E REFS para registrar a sessão
+  const startTimeRef = useRef(null); // Para registrar o início da sessão
+  const [allDifficultyRatings, setAllDifficultyRatings] = useState({}); // Objeto para armazenar ratings de todos os cards
+                                                                        // Chave: cardId, Valor: rating
+  
   const fetchCards = useCallback(async () => {
     setLoading(true);
     setError(null);
     setCorrectCount(0);
     setIncorrectCount(0);
+    setAllDifficultyRatings({}); // Resetar ratings ao buscar novos cards
+    startTimeRef.current = Date.now(); // Registrar início da sessão
     try {
       let responseData;
       if (deckId) {
@@ -96,41 +103,116 @@ function FlashcardStudy({ navigateTo, deckId, tagId }) {
       setCorrectCount(prev => prev + 1);
     }
 
+    // Registre a avaliação do card
+    setAllDifficultyRatings(prevRatings => ({
+      ...prevRatings,
+      [cardId]: numericRating
+    }));
+
     try {
       await markCardDifficulty(cardId, numericRating);
 
+      // Lógica para ir para o próximo cartão ou finalizar a sessão
       if (currentCardIndex < cards.length - 1) {
         setCurrentCardIndex(currentCardIndex + 1);
         setIsFlipped(false);
-      } else if (deckId !== null) {
+      } else { // Sessão concluída
         setStudyComplete(true);
-        const sessionData = {
-          deckId: deckId,
-          correctCount: numericRating >= 3 ? correctCount + 1 : correctCount,
-          incorrectCount: numericRating <= 2 ? incorrectCount + 1 : incorrectCount
-        };
-        await registerSession(sessionData);
-        console.log('Sessão de estudo registrada com sucesso:', sessionData);
-      } else {
-        setStudyComplete(true);
+        
+        let sessionData = {}; // Inicializa o objeto de dados da sessão
+        const endTime = Date.now();
+        const durationMinutes = Math.round((endTime - startTimeRef.current) / 60000); // Milissegundos para minutos
+
+        if (deckId !== undefined && deckId !== null) { // Verifique se é estudo por DECK
+          sessionData = {
+            deckId: deckId,
+            durationMinutes: durationMinutes,
+            cardsReviewed: cards.length, // Total de cards no baralho ou revisados
+            correctCount: correctCount + (numericRating >= 3 ? 1 : 0), // Ajusta os contadores para incluir o último card
+            incorrectCount: incorrectCount + (numericRating <= 2 ? 1 : 0),
+            difficultyRatings: Object.entries(allDifficultyRatings).map(([cardId, rating]) => ({
+              cardId: parseInt(cardId), // Garante que o cardId é um número
+              rating: rating
+            }))
+          };
+          console.log('Dados da sessão de estudo por deck sendo enviados:', sessionData); // LOG CRÍTICO!
+          await registerSession(sessionData);
+          console.log('Sessão de estudo por deck registrada com sucesso!');
+
+        } else if (tagId !== undefined && tagId !== null) { // Verifique se é estudo por TAG
+          sessionData = {
+            tagId: tagId, // Usar tagId aqui
+            durationMinutes: durationMinutes,
+            cardsReviewed: cards.length, 
+            correctCount: correctCount + (numericRating >= 3 ? 1 : 0),
+            incorrectCount: incorrectCount + (numericRating <= 2 ? 1 : 0),
+            difficultyRatings: Object.entries(allDifficultyRatings).map(([cardId, rating]) => ({
+              cardId: parseInt(cardId),
+              rating: rating
+            }))
+          };
+          console.log('Dados da sessão de estudo por tag sendo enviados:', sessionData);
+          await registerSession(sessionData); // Assumindo que registerSession lida com deckId/tagId nulos
+          console.log('Sessão de estudo por tag registrada com sucesso!');
+        } else {
+            console.warn('Sessão de estudo concluída, mas sem deckId ou tagId válido para registro.');
+        }
       }
     } catch (err) {
       setError(err.message || `Erro ao marcar dificuldade "${difficultyString}" do cartão.`);
       console.error('Erro ao marcar dificuldade:', err);
+      
+      // Lógica de fallback para o próximo cartão ou finalização, mesmo com erro
       if (currentCardIndex < cards.length - 1) {
         setCurrentCardIndex(currentCardIndex + 1);
         setIsFlipped(false);
-      } else if (deckId !== null) {
-        setStudyComplete(true);
-         const sessionData = {
-          deckId: deckId,
-          correctCount: numericRating >= 3 ? correctCount + 1 : correctCount,
-          incorrectCount: numericRating <= 2 ? incorrectCount + 1 : incorrectCount
-        };
-        await registerSession(sessionData);
-        console.log('Sessão de estudo registrada com sucesso:', sessionData);
       } else {
         setStudyComplete(true);
+        // Mesmo em caso de erro, tente registrar a sessão se for por deck/tag
+        // para não perder os dados (se o erro não for na própria requisição de sessão)
+        let sessionData = {}; 
+        const endTime = Date.now();
+        const durationMinutes = Math.round((endTime - startTimeRef.current) / 60000);
+
+        if (deckId !== undefined && deckId !== null) {
+            sessionData = {
+              deckId: deckId,
+              durationMinutes: durationMinutes,
+              cardsReviewed: cards.length, 
+              correctCount: correctCount + (numericRating >= 3 ? 1 : 0),
+              incorrectCount: incorrectCount + (numericRating <= 2 ? 1 : 0),
+              difficultyRatings: Object.entries(allDifficultyRatings).map(([cardId, rating]) => ({
+                cardId: parseInt(cardId),
+                rating: rating
+              }))
+            };
+            console.log('Tentando registrar sessão após erro no markDifficulty:', sessionData);
+            try {
+                await registerSession(sessionData);
+                console.log('Sessão de estudo registrada com sucesso (após erro de marcação)!');
+            } catch (sessionError) {
+                console.error('Erro secundário ao registrar sessão:', sessionError);
+            }
+        } else if (tagId !== undefined && tagId !== null) {
+            sessionData = {
+                tagId: tagId,
+                durationMinutes: durationMinutes,
+                cardsReviewed: cards.length, 
+                correctCount: correctCount + (numericRating >= 3 ? 1 : 0),
+                incorrectCount: incorrectCount + (numericRating <= 2 ? 1 : 0),
+                difficultyRatings: Object.entries(allDifficultyRatings).map(([cardId, rating]) => ({
+                    cardId: parseInt(cardId),
+                    rating: rating
+                }))
+            };
+            console.log('Tentando registrar sessão por tag após erro no markDifficulty:', sessionData);
+            try {
+                await registerSession(sessionData);
+                console.log('Sessão de estudo por tag registrada com sucesso (após erro de marcação)!');
+            } catch (sessionError) {
+                console.error('Erro secundário ao registrar sessão por tag:', sessionError);
+            }
+        }
       }
     }
   };
