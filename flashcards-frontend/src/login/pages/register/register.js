@@ -3,7 +3,7 @@ import * as Form from '@radix-ui/react-form';
 import { registerUser } from '../../services/registerService';
 import { loginUser } from '../../services/loginService';
 import './register.css';
-import { EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons';
+import { EyeOpenIcon, EyeClosedIcon, ArrowLeftIcon } from '@radix-ui/react-icons';
 
 function Register({ navigateTo }) {
   const [error, setError] = useState(null);
@@ -78,6 +78,9 @@ function Register({ navigateTo }) {
 
       <main className="hero-section">
         <div className="login-card">
+          <button className="back-button" onClick={() => navigateTo('home')}>
+            <ArrowLeftIcon /> Voltar
+          </button>
           <h2 className="login-title">Cadastro</h2>
           
           {error && <div className="error-message">{error}</div>}

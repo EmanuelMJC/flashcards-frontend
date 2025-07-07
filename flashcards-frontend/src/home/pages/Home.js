@@ -1,14 +1,37 @@
 import React from 'react';
 import './Home.css';
+import { logoutUser } from '../../login/services/loginService';
 
 function Home({ navigateTo }) {
+
+  const isLoggedIn = localStorage.getItem('authToken') !== null;
+  const username = JSON.stringify(localStorage.getItem('username')).replace(/^"|"$/g, ''); 
+
+  const handleLogout = () => {
+    logoutUser();
+    navigateTo('home');
+  };
+
   return (
     <div className="home-container">
       <header className="home-header">
         <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div>
-        <nav className="auth-buttons">
-          <button className="btn-sign-in" onClick={() => navigateTo('register')}>Sign In</button>
-          <button className="btn-login" onClick={() => navigateTo('login')}>Login</button>
+        <nav >
+          {isLoggedIn ? (
+            <div className="user-info">
+              <span>{username}</span>
+              <button className="btn-logout" onClick={logoutUser}>Sair</button>
+            </div>
+          ) : (
+            <div className="auth-buttons">
+              <button className="btn-sign-in" onClick={() => navigateTo('register')}>
+                Sign In
+              </button>
+              <button className="btn-login" onClick={() => navigateTo('login')}>
+                Login
+              </button>
+            </div>
+          )}
         </nav>
       </header>
 

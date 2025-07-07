@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as Form from '@radix-ui/react-form';
 import { loginUser } from '../../services/loginService';
 import './login.css';
-import { EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons';
+import { EyeOpenIcon, EyeClosedIcon, ArrowLeftIcon } from '@radix-ui/react-icons';
 
 function Login({ navigateTo }) {
   const [error, setError] = useState(null);
@@ -46,6 +46,9 @@ return (
 
       <main className="hero-section">
         <div className="login-card">
+          <button className="back-button" onClick={() => navigateTo('home')}>
+            <ArrowLeftIcon /> Voltar
+          </button>
           <h2 className="login-title">Login</h2>
           
           {error && (
