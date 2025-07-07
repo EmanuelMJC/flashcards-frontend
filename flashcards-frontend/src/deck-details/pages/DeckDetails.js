@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './DeckDetails.css';
 import { getDeckById, getCardsByDeckId, createCard, updateCard, deleteCard, deleteDeck } from '../../dashboard/services/dashboardService';
-import CreateCardModal from '../../dashboard/components/CreateCardModal'; 
-import EditCardModal from '../../dashboard/components/EditCardModal';   
+import CreateCardModal from '../../dashboard/components/CreateCardModal';
+import EditCardModal from '../../dashboard/components/EditCardModal';
 
 function DeckDetails({ navigateTo, deckId }) {
   const [deck, setDeck] = useState(null);
@@ -12,7 +12,7 @@ function DeckDetails({ navigateTo, deckId }) {
 
   const [isCreateCardModalOpen, setIsCreateCardModalOpen] = useState(false);
   const [isEditCardModalOpen, setIsEditCardModalOpen] = useState(false);
-  const [currentCardToEdit, setCurrentCardToEdit] = useState(null); 
+  const [currentCardToEdit, setCurrentCardToEdit] = useState(null);
 
   const [showDeleteDeckConfirmModal, setShowDeleteDeckConfirmModal] = useState(false);
 
@@ -24,7 +24,7 @@ function DeckDetails({ navigateTo, deckId }) {
       setDeck(fetchedDeck);
 
       const fetchedCards = await getCardsByDeckId(deckId);
-      setCards(fetchedCards.cards || []); 
+      setCards(fetchedCards || []); 
 
     } catch (err) {
       setError(err.message || 'Erro desconhecido ao carregar detalhes do baralho e cartões.');
@@ -56,7 +56,7 @@ function DeckDetails({ navigateTo, deckId }) {
     if (window.confirm('Tem certeza que deseja excluir este cartão?')) {
       try {
         await deleteCard(cardId);
-        fetchDeckAndCards(); 
+        fetchDeckAndCards();
       } catch (err) {
         setError(err.message || 'Erro desconhecido ao excluir cartão.');
         console.error('Erro ao excluir card:', err);
@@ -67,12 +67,12 @@ function DeckDetails({ navigateTo, deckId }) {
   const handleCreateCard = async (front, back, tags) => {
     try {
       await createCard(deckId, { front, back, tags });
-      fetchDeckAndCards(); 
-      setIsCreateCardModalOpen(false); 
+      fetchDeckAndCards();
+      setIsCreateCardModalOpen(false);
     } catch (err) {
       setError(err.message || 'Erro desconhecido ao criar cartão.');
       console.error('Erro ao criar card:', err);
-      alert(`Erro ao criar cartão: ${err.message || err}`); 
+      alert(`Erro ao criar cartão: ${err.message || err}`);
     }
   };
 
@@ -80,15 +80,14 @@ function DeckDetails({ navigateTo, deckId }) {
     try {
       await updateCard(cardId, { front, back, tags });
       fetchDeckAndCards();
-      setIsEditCardModalOpen(false); 
-      setCurrentCardToEdit(null); 
+      setIsEditCardModalOpen(false);
+      setCurrentCardToEdit(null);
     } catch (err) {
       setError(err.message || 'Erro desconhecido ao salvar cartão.');
       console.error('Erro ao salvar card:', err);
-      alert(`Erro ao salvar cartão: ${err.message || err}`); 
+      alert(`Erro ao salvar cartão: ${err.message || err}`);
     }
   };
-
 
   const handleDeleteDeckConfirm = () => {
     setShowDeleteDeckConfirmModal(true);
@@ -98,7 +97,7 @@ function DeckDetails({ navigateTo, deckId }) {
     try {
       await deleteDeck(deckId);
       setShowDeleteDeckConfirmModal(false);
-      navigateTo('dashboard'); 
+      navigateTo('dashboard');
     } catch (err) {
       setError(err.message || 'Erro desconhecido ao excluir baralho.');
       console.error('Erro ao excluir deck:', err);
@@ -113,7 +112,7 @@ function DeckDetails({ navigateTo, deckId }) {
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>
             Voltar
           </button>
-          <div className="logo">DECOREBA</div>
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
         </header>
         <main className="deck-details-main-content">
           <h1>Carregando detalhes do baralho...</h1>
@@ -129,7 +128,7 @@ function DeckDetails({ navigateTo, deckId }) {
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>
             Voltar
           </button>
-          <div className="logo">DECOREBA</div>
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
         </header>
         <main className="deck-details-main-content">
           <div className="error-message">{error}</div>
@@ -146,7 +145,7 @@ function DeckDetails({ navigateTo, deckId }) {
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>
             Voltar
           </button>
-          <div className="logo">DECOREBA</div>
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
         </header>
         <main className="deck-details-main-content">
           <div className="no-deck-found">
@@ -164,7 +163,7 @@ function DeckDetails({ navigateTo, deckId }) {
         <button className="btn-back" onClick={() => navigateTo('dashboard')}>
           Voltar
         </button>
-        <div className="logo">DECOREBA</div>
+        <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div>
       </header>
 
       <main className="deck-details-main-content">
@@ -231,7 +230,7 @@ function DeckDetails({ navigateTo, deckId }) {
           isOpen={isEditCardModalOpen}
           onClose={() => {
             setIsEditCardModalOpen(false);
-            setCurrentCardToEdit(null); 
+            setCurrentCardToEdit(null);
           }}
           card={currentCardToEdit}
           onEdit={handleUpdateCard}
@@ -255,25 +254,6 @@ function DeckDetails({ navigateTo, deckId }) {
           </div>
         </div>
       )}
-
-      <div style={{
-        position: 'fixed',
-        bottom: '0',
-        left: '0',
-        width: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        padding: '15px 0',
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '20px',
-        zIndex: 9999,
-        boxSizing: 'border-box'
-      }}>
-        <button onClick={() => navigateTo('home')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Home</button>
-        <button onClick={() => navigateTo('dashboard')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Dashboard</button>
-        <button onClick={() => navigateTo('study')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Estudo (Geral)</button>
-        <button onClick={() => navigateTo('report')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Relatório</button>
-      </div>
     </div>
   );
 }

@@ -38,7 +38,7 @@ function Login({ navigateTo }) {
     }
   };
 
-  return (
+return (
     <div className="home-container">
       <header className="home-header">
         <div className="logo">DECOREBA</div>

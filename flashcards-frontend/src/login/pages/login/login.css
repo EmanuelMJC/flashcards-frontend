@@ -106,6 +106,7 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 0.875rem;
+  color: #333;
 }
 
 .form-input:focus {
@@ -204,7 +205,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* Melhorias nos links */
 .create-account, .forgot-password {
   display: block;
   text-align: center;

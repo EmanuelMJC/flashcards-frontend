@@ -1,4 +1,3 @@
-// src/flashcard-study/pages/FlashcardStudy.js
 import React, { useState, useEffect, useCallback } from 'react';
 import './FlashcardStudy.css';
 import { getStudyCardsByDeck, markCardDifficulty } from '../../dashboard/services/dashboardService';
@@ -110,7 +109,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
     return (
       <div className="study-container">
         <header className="study-header">
-          <div className="logo">DECOREBA</div>
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>Voltar para Baralhos</button>
         </header>
         <main className="study-main-content">
@@ -124,7 +123,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
     return (
       <div className="study-container">
         <header className="study-header">
-          <div className="logo">DECOREBA</div>
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>Voltar para Baralhos</button>
         </header>
         <main className="study-main-content">
@@ -139,7 +138,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
     return (
       <div className="study-container">
         <header className="study-header">
-          <div className="logo">DECOREBA</div>
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>Voltar para Baralhos</button>
         </header>
         <main className="study-main-content">
@@ -158,7 +157,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
     return (
       <div className="study-container">
         <header className="study-header">
-          <div className="logo">DECOREBA</div>
+          <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div> 
           <button className="btn-back" onClick={() => navigateTo('dashboard')}>Voltar para Baralhos</button>
         </header>
         <main className="study-main-content">
@@ -180,7 +179,7 @@ function FlashcardStudy({ navigateTo, deckId }) {
   return (
     <div className="study-container">
       <header className="study-header">
-        <div className="logo">DECOREBA</div>
+        <div className="logo" onClick={() => navigateTo('dashboard')} style={{ cursor: 'pointer' }}>DECOREBA</div>
         <button className="btn-back" onClick={() => navigateTo('dashboard')}>Voltar para Baralhos</button>
       </header>
 
@@ -217,25 +216,6 @@ function FlashcardStudy({ navigateTo, deckId }) {
           </div>
         )}
       </main>
-
-      <div style={{
-        position: 'fixed',
-        bottom: '0',
-        left: '0',
-        width: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        padding: '15px 0',
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '20px',
-        zIndex: 9999,
-        boxSizing: 'border-box'
-      }}>
-        <button onClick={() => navigateTo('home')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Home</button>
-        <button onClick={() => navigateTo('dashboard')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Dashboard</button>
-        <button onClick={() => navigateTo('study')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Estudo (Geral)</button>
-        <button onClick={() => navigateTo('report')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Relatório</button>
-      </div>
     </div>
   );
 }

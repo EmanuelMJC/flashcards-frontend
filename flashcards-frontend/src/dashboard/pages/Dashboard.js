@@ -175,25 +175,6 @@ function Dashboard({ navigateTo }) {
           onEdit={handleEditDeck}
         />
       )}
-
-      <div style={{
-        position: 'fixed',
-        bottom: '0',
-        left: '0',
-        width: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        padding: '15px 0',
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '20px',
-        zIndex: 9999,
-        boxSizing: 'border-box'
-      }}>
-        <button onClick={() => navigateTo('home')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Home</button>
-        <button onClick={() => navigateTo('dashboard')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Dashboard</button>
-        <button onClick={() => navigateTo('study')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Estudo (Geral)</button>
-        <button onClick={() => navigateTo('report')} style={{ padding: '10px 20px', backgroundColor: 'lightgray', border: 'none', cursor: 'pointer' }}>Ir para Relatório</button>
-      </div>
     </div>
   );
 }
