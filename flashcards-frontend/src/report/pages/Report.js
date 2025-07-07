@@ -3,8 +3,9 @@ import { getReportsHistory, getOverallStats, getDeckStats, getTagStats } from '.
 import ListReports from '../components/listReports';
 import DetailsReport from '../components/detailsReport';
 import './Report.css';
+import { logoutUser } from '../../login/services/loginService';
 
-function Report() {
+function Report({ navigateTo }) {
   const [view, setView] = useState('list'); 
   const [selectedReport, setSelectedReport] = useState(null);
   const [reports, setReports] = useState([]);
@@ -44,13 +45,29 @@ function Report() {
     setSelectedReport(null);
   };
 
+  const isLoggedIn = localStorage.getItem('authToken') !== null;
+
   return (
     <div className="report-container">
       <header className="report-header">
-        <div className="logo">DECOREBA</div>
-        <div className="user-info">
-          <span>{username}</span>
-        </div>
+        <div className="logo" onClick={() => navigateTo('home')}>DECOREBA</div>
+        <nav >
+          {isLoggedIn ? (
+            <div className="user-info">
+              <span>{username}</span>
+              <button className="btn-logout" onClick={logoutUser}>Sair</button>
+            </div>
+          ) : (
+            <div className="auth-buttons">
+              <button className="btn-sign-in" onClick={() => navigateTo('register')}>
+                Sign In
+              </button>
+              <button className="btn-login" onClick={() => navigateTo('login')}>
+                Login
+              </button>
+            </div>
+          )}
+        </nav>
       </header>
       
       <main className="report-main-content">

@@ -14,15 +14,15 @@ function ListReports({ reports, stats, onReportClick }) {
               <p>{stats.total_sessions}</p>
             </div>
             <div className="summary-card correct">
-              <h3>Acertos</h3>
+              <h3>Sem dificuldade</h3>
               <p>{stats.total_correct}</p>
             </div>
             <div className="summary-card incorrect">
-              <h3>Erros</h3>
+              <h3>Com dificuldade</h3>
               <p>{stats.total_incorrect}</p>
             </div>
             <div className="summary-card accuracy">
-              <h3>Taxa de Acerto</h3>
+              <h3>Taxa de estudos</h3>
               <p>{stats.total_correct > 0 ? 
                 ((stats.total_correct / (stats.total_correct + stats.total_incorrect)) * 100).toFixed(1) : 0}%
               </p>
@@ -50,8 +50,8 @@ function ListReports({ reports, stats, onReportClick }) {
                   </span>
                 </div>
                 <div className="report-stats">
-                  <span className="correct">{report.correct_count} acertos</span>
-                  <span className="incorrect">{report.incorrect_count} erros</span>
+                  <span className="correct">{report.correct_count} Sem dificuldade</span>
+                  <span className="incorrect">{report.incorrect_count} Com dificuldade</span>
                 </div>
               </li>
             ))}

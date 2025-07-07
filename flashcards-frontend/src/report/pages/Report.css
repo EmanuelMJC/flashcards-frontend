@@ -33,6 +33,7 @@
   font-size: 24px;
   font-weight: bold;
   color: var(--text-color);
+  cursor: pointer;
 }
 
 .report-header .user-info {
@@ -241,6 +242,29 @@ reports-list {
   height: 200px;
   font-size: 20px;
   color: var(--text-color);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.btn-logout {
+  background-color: var(--status-red); 
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #c82333; 
 }
 
 @media (max-width: 900px) {

@@ -22,15 +22,15 @@ function DetailsReport({ report, onBack }) {
             <p>{new Date(report.session_date).toLocaleDateString()}</p>
           </div>
           <div className="summary-card correct">
-            <h3>Acertos</h3>
+            <h3>Sem dificuldade</h3>
             <p>{report.correct_count}</p>
           </div>
           <div className="summary-card incorrect">
-            <h3>Erros</h3>
+            <h3>Com dificuldade</h3>
             <p>{report.incorrect_count}</p>
           </div>
           <div className="summary-card accuracy">
-            <h3>Taxa de Acerto</h3>
+            <h3>Taxa de estudos</h3>
             <p>{accuracy}%</p>
           </div>
         </div>

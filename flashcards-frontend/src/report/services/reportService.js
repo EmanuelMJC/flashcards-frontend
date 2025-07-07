@@ -1,8 +1,8 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3001';
 
 export const registerSession = async (sessionData) => {
   try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     const response = await fetch(`${API_URL}/reports/sessions`, {
       method: 'POST',
       headers: {
@@ -32,7 +32,7 @@ export const getReportsHistory = async (filters = {}) => {
     if (filters.limit) params.append('limit', filters.limit);
     if (filters.offset) params.append('offset', filters.offset);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     const response = await fetch(`${API_URL}/reports/history?${params.toString()}`, {
       method: 'GET',
       headers: {
@@ -55,7 +55,7 @@ export const getReportsHistory = async (filters = {}) => {
 
 export const getOverallStats = async () => {
   try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     const response = await fetch(`${API_URL}/reports/stats/overall`, {
       method: 'GET',
       headers: {
@@ -78,7 +78,7 @@ export const getOverallStats = async () => {
 
 export const getDeckStats = async () => {
   try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     const response = await fetch(`${API_URL}/reports/stats/decks`, {
       method: 'GET',
       headers: {
@@ -101,7 +101,7 @@ export const getDeckStats = async () => {
 
 export const getTagStats = async () => {
   try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     const response = await fetch(`${API_URL}/reports/stats/tags`, {
       method: 'GET',
       headers: {

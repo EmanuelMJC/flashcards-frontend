@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './FlashcardStudy.css';
 import { getStudyCardsByDeck, markCardDifficulty } from '../../dashboard/services/dashboardService';
+import { registerSession } from '../../report/services/reportService';
 
 function FlashcardStudy({ navigateTo, deckId }) {
   const [cards, setCards] = useState([]);
@@ -10,10 +11,14 @@ function FlashcardStudy({ navigateTo, deckId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [studyComplete, setStudyComplete] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
 
   const fetchCards = useCallback(async () => {
     setLoading(true);
     setError(null);
+    setCorrectCount(0);
+    setIncorrectCount(0);
     try {
       let responseData;
       if (deckId) {
@@ -81,6 +86,12 @@ function FlashcardStudy({ navigateTo, deckId }) {
         numericRating = 3;
     }
 
+    if (numericRating <= 2) {
+      setIncorrectCount(prev => prev + 1);
+    } else {
+      setCorrectCount(prev => prev + 1);
+    }
+
     try {
       await markCardDifficulty(cardId, numericRating);
 
@@ -89,7 +100,13 @@ function FlashcardStudy({ navigateTo, deckId }) {
         setIsFlipped(false);
       } else {
         setStudyComplete(true);
-        /// TODO ADD REPORT
+        const sessionData = {
+          deckId: deckId,
+          correctCount: numericRating >= 3 ? correctCount + 1 : correctCount,
+          incorrectCount: numericRating <= 2 ? incorrectCount + 1 : incorrectCount
+        };
+        await registerSession(sessionData);
+        console.log('Sessão de estudo registrada com sucesso:', sessionData);
       }
     } catch (err) {
       setError(err.message || `Erro ao marcar dificuldade "${difficultyString}" do cartão.`);
@@ -99,7 +116,13 @@ function FlashcardStudy({ navigateTo, deckId }) {
         setIsFlipped(false);
       } else {
         setStudyComplete(true);
-        /// TODO ADD REPORT
+         const sessionData = {
+          deckId: deckId,
+          correctCount: numericRating >= 3 ? correctCount + 1 : correctCount,
+          incorrectCount: numericRating <= 2 ? incorrectCount + 1 : incorrectCount
+        };
+        await registerSession(sessionData);
+        console.log('Sessão de estudo registrada com sucesso:', sessionData);
       }
     }
   };
